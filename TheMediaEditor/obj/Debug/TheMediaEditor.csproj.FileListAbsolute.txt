@@ -1,0 +1,16 @@
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\TheMediaEditor.exe.config
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\TheMediaEditor.exe
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\TheMediaEditor.pdb
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.DisplayView.resources
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.Properties.Resources.resources
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.csproj.GenerateResource.cache
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.csproj.CoreCompileInputs.cache
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.exe
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.pdb
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.csprojAssemblyReference.cache
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.Views.CollectionView.resources
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\Backend.dll
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\ImageProcessor.dll
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\Backend.pdb
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\bin\Debug\ImageProcessor.xml
+C:\Users\flipd\source\repos\TheMediaEditor\TheMediaEditor\obj\Debug\TheMediaEditor.csproj.CopyComplete
