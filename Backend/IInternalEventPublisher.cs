@@ -12,12 +12,12 @@ namespace Backend
         /// Subscribe a listener to note events
         /// </summary>
         /// <param name="listener">reference to the listener method</param>
-        void Subscribe(EventHandler<ImageEventArgs> listener);
+        void Subscribe(EventHandler<ImageModelEventArgs> listener);
 
         /// <summary>
         /// Unsubscribe a listener from note events
         /// </summary>
         /// <param name="listener">reference to the listener method</param>
-        void Unsubscribe(EventHandler<ImageEventArgs> listener);
+        void Unsubscribe(EventHandler<ImageModelEventArgs> listener);
     }
 }

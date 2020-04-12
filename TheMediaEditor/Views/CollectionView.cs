@@ -11,7 +11,7 @@ using Backend;
 
 namespace TheMediaEditor.Views
 {
-    public partial class CollectionView : Form, IEventListener
+    public partial class CollectionView : Form
     {
         // DECLARE a StrategyDelegate to be used for browsing new images, call it _browseImages:
         private StrategyDelegate _browseImages;
@@ -28,18 +28,28 @@ namespace TheMediaEditor.Views
             _browseImages = browseImages;
         }
 
-        #region Implementation of IEventListener
-        public void OnNewImages(object source, ThumbnailsEventArgs args)
-        {
-            int lastIndex = ThumbnailsFlowPanel.Controls.Count - 1;
+        //public void OnNewImages(object source, EventArgs args)
+        //{
+        //    int lastIndex = ThumbnailsFlowPanel.Controls.Count - 1;
 
+        //    Button button = new Button();
+        //    button.Tag = lastIndex;
+        //    button.Size = new Size(150, 150);
+        //    //button.Image = args.thumbnailImages[lastIndex];
+        //    ThumbnailsFlowPanel.Controls.Add(button);
+        //}
+
+
+        #region Implementation of IEventListener
+        public void OnImageAdded(object source, ImageAddedEventArgs args)
+        {
             Button button = new Button();
-            button.Tag = lastIndex;
+            button.Tag = args.index;
             button.Size = new Size(150, 150);
-            button.Image = args.thumbnailImages[lastIndex];
+            button.Image = args.image;
+            button.BackColor = Color.BlanchedAlmond;
             ThumbnailsFlowPanel.Controls.Add(button);
         }
-
         #endregion
 
         #region private methods

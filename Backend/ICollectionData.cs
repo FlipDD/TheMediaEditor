@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    public interface IImageModel
+    public interface ICollectionData
     {
+        void AddImage(Image imageToAdd);
+
+        //TODO remove this
+        void Subscribe(EventHandler<ImageAddedEventArgs> listener);
     }
 }

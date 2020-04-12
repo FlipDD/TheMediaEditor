@@ -7,95 +7,30 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    class ImageModel : IEventPublisher, IImageModel
+    class ImageModel : IImageModel
     {
-        // DECLARE a IServiceLocator to store a reference to the FactoryLocator, call it _factories:
-        private IServiceLocator _factories;
+        public event EventHandler<ImageModelEventArgs> ImageChanged;
 
-        // DECLARE a List<String> to store a list of path+filename for all available image assets, call it _imageNames:
-        private IList<String> _imageNames;
+        private IImageEditor _imageEditor;
 
-        // DECLARE a Dictionary<int,ImageData> to store all data in, call it _data:
-        private IDictionary<int, ImageData> _data;
+        private Image _currentImage;
 
-        // DECLARE an int to act as a circular counter index into _imageNames:
-        private int _cCounter = 0;
-
-        #region IMPLEMENTATION of INoteData
-        /// <summary>
-        /// Inject a reference to the factory locator service
-        /// </summary>
-        /// <param name="locator">The factory locator service</param>
-        public void InjectFactory(IServiceLocator locator)
+        public ImageModel(IImageEditor imageEditor, Image currentImage)
         {
-            // Initialise _factories:
-            _factories = locator;
-
-            // Get reference to _data:
-            _data = (_factories.Get<IDictionary<int, ImageData>>() as IFactory<IDictionary<int, ImageData>>).Create<Dictionary<int, ImageData>>();
+            _imageEditor = imageEditor;
+            _currentImage = currentImage;
         }
 
-        /// <summary>
-        /// Add a new note
-        /// </summary>
-        /// <param name="key">unique key of new note</param>
-        public void AddItem(Image image)
+        public void Crop()
         {
-            // Add new element in _data with given key:
-            int lastIndex = _data.Count - 1;
-            _data.Add(lastIndex, (_factories.Get<ImageData>() as IFactory<ImageData>).Create<ImageData>());
-
-            // Initialise new element:
-            _data[lastIndex].Initialise(image,(_factories.Get<IImageEditor>() as IFactory<IImageEditor>).Create<ImageEditor>());
 
         }
 
-        ///// <summary>
-        ///// Retrieve the IImageData pointed to by key.
-        ///// </summary>
-        ///// <param name="key">The key to the IImageData</param>
-        ///// <returns></returns>
-        //public IImageData RetrieveItem(int key)
-        //{
-        //    return _data[key];
-        //}
-        #endregion
-
-        #region IMPLEMENTATION of IEventPublisher
-        /// <summary>
-        /// Subscribe a listener to note events
-        /// </summary>
-        /// <param name="key">key to the note</param>
-        /// <param name="listener">reference to the listener method</param>
-        public void Subscribe(int key, EventHandler<ImageEventArgs> listener)
+        protected virtual void OnImageChanged(Image image)
         {
-            // Subscribe listener to _data[key]:
-            (_data[key] as IInternalEventPublisher).Subscribe(listener);
+            // Only call it if there are any subscribers:
+            if (ImageChanged != null)
+                ImageChanged(this, new ImageModelEventArgs(image));
         }
-
-        /// <summary>
-        /// Unsubscribe a listener from note events
-        /// </summary>
-        /// <param name="key">key to the note</param>
-        /// <param name="listener">reference to the listener method</param>
-        public void Unsubscribe(int key, EventHandler<ImageEventArgs> listener)
-        {
-            // Unsubscribe listener from _data[key]:
-            (_data[key] as IInternalEventPublisher).Unsubscribe(listener);
-        }
-        #endregion
-
-        #region Private methods
-        private int CircularCounter(int maxValue)
-        {
-            _cCounter++;
-            if (_cCounter == maxValue)
-            {
-                _cCounter = 0;
-            }
-
-            return _cCounter;
-        }
-        #endregion
     }
 }

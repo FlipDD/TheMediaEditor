@@ -12,6 +12,31 @@ namespace Backend
 {
     class ImageEditor : IImageEditor
     {
+//        public Image CloneViaStream(Image image,
+//       Func<TypeFromImageFactoryLoad, TypeForSaveCall> populateStream)
+//        {
+//            using (var imageFactory = new ImageFactory(preserveExifData: true))
+//            {
+//                using (var imageStream = new MemoryStream())
+//                {
+//                    TypeFromImageFactoryLoad loadResult = imageFactory.Load(image);
+//                    TypeForSaveCall processResult = process(loadResult);
+//                    processResult.Save(imageStream);
+
+//                    imageStream.Position = 0;
+//                    return Image.FromStream(imageStream);
+//                }
+//            }
+//        }
+
+//        var resultResize = CloneViaStream(image,
+//     funcParam1 => funcParam1.Resize(new Size(width, height)));
+
+//        var cropLayer = ...
+//var resultCrop = CloneViaStream(image,
+//     loadResult => loadResult.Crop(cropLayer)));
+
+
         /// <summary>
         /// Scale an image to fit specified size
         /// </summary>

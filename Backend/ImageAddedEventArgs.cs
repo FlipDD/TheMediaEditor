@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    public class ImageEventArgs : EventArgs
+    public class ImageAddedEventArgs : EventArgs
     {
-        /// <summary>
-        /// Property to hold the updated image (if any)
-        /// </summary>
         public Image image { get; }
 
-        public ImageEventArgs(Image data)
+        public int index { get; }
+
+        public ImageAddedEventArgs(int indexData, Image imageData)
         {
-            this.image = data;
+            index = indexData;
+            image = imageData;
         }
     }
 }
