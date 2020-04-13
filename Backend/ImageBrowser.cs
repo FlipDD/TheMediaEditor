@@ -16,6 +16,9 @@ namespace Backend
         /// <returns>a vector of strings containing the path for each image selected</returns>
         public IList<string> BrowseNewImages()
         {
+            // Create the list of string used to store the selected images (file paths) selected:
+            IList<string> filePaths = new List<string>();
+
             // Display a dialog box to prompt the user to select a file.
             // Create an instance with a using statement so it automatically
             // closes the stream and calls .Dispose(), which calls .Close().
@@ -39,10 +42,10 @@ namespace Backend
                 // If we picked some Images, return them
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    return fileDialog.FileNames;
+                    filePaths = fileDialog.FileNames;
                 }
 
-                return null;
+                return filePaths;
             }
         }
     }

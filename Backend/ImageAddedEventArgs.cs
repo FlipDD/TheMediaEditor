@@ -4,19 +4,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Backend
 {
     public class ImageAddedEventArgs : EventArgs
     {
-        public Image image { get; }
+        public Panel panel { get; }
 
-        public int index { get; }
-
-        public ImageAddedEventArgs(int indexData, Image imageData)
+        public ImageAddedEventArgs(Panel panelData)
         {
-            index = indexData;
-            image = imageData;
+            panel = panelData;
         }
     }
 }

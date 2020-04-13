@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace TheMediaEditor
 {
@@ -22,4 +18,11 @@ namespace TheMediaEditor
     /// </summary>
     /// <returns>The note text</returns>
     public delegate void BrowseImagesDelegate();
+
+    /// <summary>
+    /// Declare a delegate for retrieving an image, call it RetrieveImageDelegate
+    /// </summary>
+    /// <param name="size">The size that the image should be scaled to</param>
+    /// <returns>The note text</returns>
+    public delegate void RetrieveImageDelegate(Size size);
 }

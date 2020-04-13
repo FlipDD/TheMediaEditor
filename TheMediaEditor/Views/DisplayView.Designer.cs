@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayView));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.picturePanel = new System.Windows.Forms.Panel();
+            this.PicturePanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.SaveButton = new TheMediaEditor.CustomRoundButton();
             this.FilterButton = new TheMediaEditor.CustomRoundButton();
@@ -54,7 +54,7 @@
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.19192F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.80808F));
-            this.tableLayoutPanel.Controls.Add(this.picturePanel, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.PicturePanel, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel.Location = new System.Drawing.Point(12, 12);
@@ -65,21 +65,21 @@
             this.tableLayoutPanel.Size = new System.Drawing.Size(710, 537);
             this.tableLayoutPanel.TabIndex = 5;
             // 
-            // picturePanel
+            // PicturePanel
             // 
-            this.picturePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.PicturePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.picturePanel.AutoSize = true;
-            this.picturePanel.BackColor = System.Drawing.Color.DimGray;
-            this.picturePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picturePanel.BackgroundImage")));
-            this.picturePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.picturePanel.Location = new System.Drawing.Point(136, 0);
-            this.picturePanel.Margin = new System.Windows.Forms.Padding(0);
-            this.picturePanel.Name = "picturePanel";
-            this.picturePanel.Padding = new System.Windows.Forms.Padding(100);
-            this.picturePanel.Size = new System.Drawing.Size(574, 537);
-            this.picturePanel.TabIndex = 5;
+            this.PicturePanel.AutoSize = true;
+            this.PicturePanel.BackColor = System.Drawing.Color.DimGray;
+            this.PicturePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PicturePanel.BackgroundImage")));
+            this.PicturePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PicturePanel.Location = new System.Drawing.Point(136, 0);
+            this.PicturePanel.Margin = new System.Windows.Forms.Padding(0);
+            this.PicturePanel.Name = "PicturePanel";
+            this.PicturePanel.Padding = new System.Windows.Forms.Padding(100);
+            this.PicturePanel.Size = new System.Drawing.Size(574, 537);
+            this.PicturePanel.TabIndex = 5;
             // 
             // tableLayoutPanel2
             // 
@@ -362,7 +362,7 @@
 
         #endregion
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.Panel picturePanel;
+        private System.Windows.Forms.Panel PicturePanel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private CustomRoundButton FilterButton;
         private CustomRoundButton FlipButton;

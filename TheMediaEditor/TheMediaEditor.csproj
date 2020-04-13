@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +54,7 @@
     </Compile>
     <Compile Include="Delegates.cs" />
     <Compile Include="ICommand.cs" />
+    <Compile Include="IDisplayView.cs" />
     <Compile Include="Views\CollectionView.cs">
       <SubType>Form</SubType>
     </Compile>

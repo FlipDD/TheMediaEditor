@@ -1,20 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TheMediaEditor
 {
-    public partial class DisplayView : Form
+    public partial class DisplayView : Form, IDisplayView
     {
+        // DECLARE a ExecuteDelegate to store the delegate to be called to issue a command:
+        private ExecuteDelegate _execute;
+
         public DisplayView()
         {
             InitializeComponent();
+        }
+
+        public void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage)
+        {
+            // SET _execute:
+            _execute = execute;
+
+            // REQUEST image:
+            ICommand getImage = new Command<Size>(retrieveImage, this.PicturePanel.Size);
+            _execute(getImage);
         }
 
         private void ImageViewer_Resize(object sender, EventArgs e)

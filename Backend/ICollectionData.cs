@@ -9,7 +9,10 @@ namespace Backend
 {
     public interface ICollectionData
     {
-        void AddImage(Image imageToAdd);
+        void InjectFactory(IServiceLocator locator);
+        void AddControl(Image imageToAdd);
+
+        IImageModel GetImageModel(int index);
 
         //TODO remove this
         void Subscribe(EventHandler<ImageAddedEventArgs> listener);

@@ -50,6 +50,7 @@
     <Compile Include="ICollectionData.cs" />
     <Compile Include="IInternalEventPublisher.cs" />
     <Compile Include="ImageAddedEventArgs.cs" />
+    <Compile Include="ImageClickedEventArgs.cs" />
     <Compile Include="ImageModelEventArgs.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="FactoryLocator.cs" />

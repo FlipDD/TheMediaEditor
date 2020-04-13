@@ -7,24 +7,39 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    class ImageModel : IImageModel
+    public class ImageModel : IImageModel
     {
         public event EventHandler<ImageModelEventArgs> ImageChanged;
 
         private IImageEditor _imageEditor;
 
         private Image _currentImage;
+        private Image _editedImage;
 
-        public ImageModel(IImageEditor imageEditor, Image currentImage)
+        //public ImageModel(IImageEditor imageEditor, Image currentImage)
+        //{
+        //    _imageEditor = imageEditor;
+        //    _currentImage = currentImage;
+        //}
+
+        public void Initialise(Image currentImage, IImageEditor imageEditor)
         {
-            _imageEditor = imageEditor;
             _currentImage = currentImage;
+            _imageEditor = imageEditor;
         }
 
         public void Crop()
         {
 
         }
+
+        public void SetCurrentImage(Image image)
+        {
+            _currentImage = image;
+        }
+
+        public Image GetCurrentImage() => _currentImage;
+        public Image GetEditedImage() => _editedImage;
 
         protected virtual void OnImageChanged(Image image)
         {

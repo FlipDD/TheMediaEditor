@@ -16,39 +16,29 @@ namespace TheMediaEditor.Views
         // DECLARE a StrategyDelegate to be used for browsing new images, call it _browseImages:
         private StrategyDelegate _browseImages;
 
+        private Action<object, EventArgs> _openImageEditor;
+
         /// <summary>
         /// Constructor for objects of type CollectionView.
         /// </summary>
         /// <param name="browseImages">A reference to the StrategyDelegate</param>
-        public CollectionView(StrategyDelegate browseImages)
+        public CollectionView(StrategyDelegate browseImages, Action<object, EventArgs> openImageEditor)
         {
             // Base Form initializations:
             InitializeComponent();
 
             _browseImages = browseImages;
+            _openImageEditor = openImageEditor;
         }
-
-        //public void OnNewImages(object source, EventArgs args)
-        //{
-        //    int lastIndex = ThumbnailsFlowPanel.Controls.Count - 1;
-
-        //    Button button = new Button();
-        //    button.Tag = lastIndex;
-        //    button.Size = new Size(150, 150);
-        //    //button.Image = args.thumbnailImages[lastIndex];
-        //    ThumbnailsFlowPanel.Controls.Add(button);
-        //}
-
 
         #region Implementation of IEventListener
         public void OnImageAdded(object source, ImageAddedEventArgs args)
         {
-            Button button = new Button();
-            button.Tag = args.index;
-            button.Size = new Size(150, 150);
-            button.Image = args.image;
-            button.BackColor = Color.BlanchedAlmond;
-            ThumbnailsFlowPanel.Controls.Add(button);
+            if (args.panel != null)
+            {
+                args.panel.DoubleClick += new System.EventHandler(_openImageEditor);
+                ThumbnailsFlowPanel.Controls.Add(args.panel);
+            }
         }
         #endregion
 
