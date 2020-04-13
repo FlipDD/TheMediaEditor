@@ -10,5 +10,7 @@ namespace Backend
     public interface IImageModel
     {
         void Initialise(Image currentImage, IImageEditor imageEditor);
+
+        void GetCurrentImage
     }
 }

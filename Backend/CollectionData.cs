@@ -13,11 +13,10 @@ namespace Backend
         // DECLARE a IServiceLocator to store a reference to the FactoryLocator, call it _factories:
         private IServiceLocator _factories;
 
-        private IDictionary<int, Image> _currentImages = new Dictionary<int, Image>();
+        private IDictionary<int, IImageModel> _currentModels = new Dictionary<int, IImageModel>();
 
         public event EventHandler<ImageAddedEventArgs> ControlAdded;
 
-        private IImageModel _imageModel;
 
         private IImageEditor _imageEditor;
 
@@ -31,24 +30,20 @@ namespace Backend
             // Initialise _factories:
             _factories = locator;
 
-            // Get reference to _imageModel:
-            _imageModel = (_factories.Get<IImageModel>() as IFactory<IImageModel>).Create<ImageModel>();
-
             // Get reference to _imageEditor:
             _imageEditor = (_factories.Get<IImageEditor>() as IFactory<IImageEditor>).Create<ImageEditor>();
         }
         #endregion
 
-        public IImageModel GetImageModel(int index)
-        {
-            _imageModel.Initialise(_currentImages[index], _imageEditor);
-            return _imageModel;
-        }
+        public IImageModel GetImageModel(int index) => _currentModels[index];
 
         public void AddControl(Image imageToAdd)
         {
-            int index = _currentImages.Count;
-            _currentImages.Add(index, imageToAdd);
+            int index = _currentModels.Count;
+            IImageModel imageModel = (_factories.Get<IImageModel>() as IFactory<IImageModel>).Create<ImageModel>();
+            imageModel.Initialise(imageToAdd, _imageEditor);
+
+            _currentModels.Add(index, imageModel);
 
             var panel = new Panel();
             panel.Tag = index;

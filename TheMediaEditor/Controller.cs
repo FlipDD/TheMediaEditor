@@ -77,7 +77,7 @@ namespace TheMediaEditor
             if (_displayView == null)
             {
                 _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
-                //_displayView.Initialise(ExecuteCommand, _collectionData.GetImageModel(indexSelected).);
+                _displayView.Initialise(ExecuteCommand, _collectionData.GetImageModel(indexSelected));
             }
 
             Console.WriteLine(panel.Tag);
