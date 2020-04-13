@@ -43,13 +43,10 @@ namespace Backend
         /// <param name="image">The original image to be scaled</param>
         /// <param name="size">The size required for the returned image</param>
         /// <returns>The scaled image</returns>
-        public Image Resize(Image image, int width, int height)
+        public Image Resize(Image image, Size size)
         {
             // Create a Image to be returned after being scaled, call it resizedImage:
             Image resizedImage;
-
-            // Create a Size for the image to be scaled to, call it size:
-            var size = new Size(width, height);
 
             // Create an ImageFactory to process the image, call it imageFactory:
             using (var imageFactory = new ImageFactory(preserveExifData: true))

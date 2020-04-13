@@ -11,6 +11,12 @@ namespace Backend
     {
         void Initialise(Image currentImage, IImageEditor imageEditor);
 
-        void GetCurrentImage
+        Image GetCurrentImage();
+
+        void ResizeImage(Size size);
+
+        void Subscribe(EventHandler<ImageModelEventArgs> listener);
+
+        void Unsubscribe(EventHandler<ImageModelEventArgs> listener);
     }
 }

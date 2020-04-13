@@ -9,18 +9,11 @@ namespace Backend
 {
     public class ImageModel : IImageModel
     {
-        public event EventHandler<ImageModelEventArgs> ImageChanged;
+        public event EventHandler<ImageModelEventArgs> _imageChangedEvent;
 
         private IImageEditor _imageEditor;
 
         private Image _currentImage;
-        private Image _editedImage;
-
-        //public ImageModel(IImageEditor imageEditor, Image currentImage)
-        //{
-        //    _imageEditor = imageEditor;
-        //    _currentImage = currentImage;
-        //}
 
         public void Initialise(Image currentImage, IImageEditor imageEditor)
         {
@@ -39,13 +32,29 @@ namespace Backend
         }
 
         public Image GetCurrentImage() => _currentImage;
-        public Image GetEditedImage() => _editedImage;
+        //public Image GetEditedImage() => _editedImage;
+
+        public void ResizeImage(Size size)
+        {
+            // SCALE _image and fire event:
+            OnImageChanged(_imageEditor.Resize(_currentImage, size));
+        }
+
+        public void Subscribe(EventHandler<ImageModelEventArgs> listener)
+        {
+            _imageChangedEvent += listener;
+        }
+
+        public void Unsubscribe(EventHandler<ImageModelEventArgs> listener)
+        {
+            _imageChangedEvent -= listener;
+        }
 
         protected virtual void OnImageChanged(Image image)
         {
             // Only call it if there are any subscribers:
-            if (ImageChanged != null)
-                ImageChanged(this, new ImageModelEventArgs(image));
+            if (_imageChangedEvent != null)
+                _imageChangedEvent(this, new ImageModelEventArgs(image));
         }
     }
 }

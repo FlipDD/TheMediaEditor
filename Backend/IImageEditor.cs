@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Backend
 {
@@ -15,7 +10,7 @@ namespace Backend
         /// <param name="image">The original image to be scaled</param>
         /// <param name="size">The size required for the returned image</param>
         /// <returns>The scaled image</returns>
-        Image Resize(Image image, int width, int height);
+        Image Resize(Image image, Size size);
 
         /// <summary>
         /// Crop an image

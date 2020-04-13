@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backend;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -22,6 +23,17 @@ namespace TheMediaEditor
             // REQUEST image:
             ICommand getImage = new Command<Size>(retrieveImage, this.PicturePanel.Size);
             _execute(getImage);
+        }
+
+        // TODO: region Implementation of IEventListener
+        public void OnImageChanged(object source, ImageModelEventArgs args)
+        {
+            // Check for new image data:
+            if (args.image != null)
+            {
+                // Update the Image in picturePanel:
+                PicturePanel.BackgroundImage = args.image;
+            }
         }
 
         private void ImageViewer_Resize(object sender, EventArgs e)

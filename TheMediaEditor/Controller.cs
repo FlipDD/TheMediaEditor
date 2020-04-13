@@ -74,13 +74,15 @@ namespace TheMediaEditor
             if (!Int32.TryParse(panel.Tag.ToString(), out indexSelected))
                 return;
 
-            if (_displayView == null)
+            if (_displayView.Visible == false)
             {
                 _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
-                _displayView.Initialise(ExecuteCommand, _collectionData.GetImageModel(indexSelected));
-            }
+                IImageModel imageModel = _collectionData.GetImageModel(indexSelected);
+                imageModel.Subscribe(_displayView.OnImageChanged);
+                _displayView.Initialise(ExecuteCommand, _collectionData.GetImageModel(indexSelected).ResizeImage);
 
-            Console.WriteLine(panel.Tag);
+                _displayView.Show();
+            }
         }
     }
 }

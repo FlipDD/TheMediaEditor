@@ -15,7 +15,7 @@ namespace Backend
 
         private IDictionary<int, IImageModel> _currentModels = new Dictionary<int, IImageModel>();
 
-        public event EventHandler<ImageAddedEventArgs> ControlAdded;
+        public event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
 
 
         private IImageEditor _imageEditor;
@@ -46,24 +46,25 @@ namespace Backend
             _currentModels.Add(index, imageModel);
 
             var panel = new Panel();
+            var size = new Size(150, 150);
             panel.Tag = index;
-            panel.Size = new Size(150, 150);
-            panel.BackgroundImage = _imageEditor.Resize(imageToAdd, 150, 150);
+            panel.Size = size;
+            panel.BackgroundImage = _imageEditor.Resize(imageToAdd, size);
             panel.BackgroundImageLayout = ImageLayout.Center;
             panel.BackColor = Color.BlanchedAlmond;
 
-            OnControlAdded(panel);
+            OnControlAddedEvent(panel);
         }
 
-        protected virtual void OnControlAdded(Panel panelAdded)
+        protected virtual void OnControlAddedEvent(Panel panelAdded)
         {
-            if (ControlAdded != null)
-                ControlAdded(this, new ImageAddedEventArgs(panelAdded));
+            if (_controlAddedEvent != null)
+                _controlAddedEvent(this, new ImageAddedEventArgs(panelAdded));
         }
 
         public void Subscribe(EventHandler<ImageAddedEventArgs> listener)
         {
-            ControlAdded += listener;
+            _controlAddedEvent += listener;
         }
     }
 }

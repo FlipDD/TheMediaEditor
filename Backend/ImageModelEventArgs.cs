@@ -16,7 +16,7 @@ namespace Backend
 
         public ImageModelEventArgs(Image data)
         {
-            this.image = data;
+            image = data;
         }
     }
 }
