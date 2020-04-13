@@ -24,6 +24,10 @@ namespace TheMediaEditor
 
         private DisplayView _displayView;
 
+        private IImageModel _currentImageModel;
+
+        private bool flipChecked = false;
+
         public Controller()
         {
             // Instantiate _factoryLocator:
@@ -34,7 +38,7 @@ namespace TheMediaEditor
             // Inject _factoryLocator through to collectionData:
             _collectionData.InjectFactory(_factoryLocator);
 
-            var collectionView = new CollectionView(BrowseImages, ShowDisplayView);
+            var collectionView = new CollectionView(BrowseImages, SetupDisplayView);
 
             _collectionData.Subscribe(collectionView.OnImageAdded);
             
@@ -67,22 +71,24 @@ namespace TheMediaEditor
         }
         #endregion
 
-        private void ShowDisplayView(object sender, EventArgs args)
+        private void SetupDisplayView(object sender, EventArgs args)
         {
             var panel = (Panel) sender;
             int indexSelected;
             if (!Int32.TryParse(panel.Tag.ToString(), out indexSelected))
                 return;
 
-            if (_displayView.Visible == false)
+            if (_displayView == null)
             {
                 _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
-                IImageModel imageModel = _collectionData.GetImageModel(indexSelected);
-                imageModel.Subscribe(_displayView.OnImageChanged);
-                _displayView.Initialise(ExecuteCommand, _collectionData.GetImageModel(indexSelected).ResizeImage);
+                _currentImageModel = _collectionData.GetImageModel(indexSelected);
+                //TODO do we need to subscribe every time if its the same class? Is it not? should we unsubscribe when we close??
+                _currentImageModel.Subscribe(_displayView.OnImageChanged);
+                _displayView.Initialise(ExecuteCommand, _currentImageModel.Resize, _currentImageModel.Flip, _currentImageModel.Rotate);
 
                 _displayView.Show();
             }
         }
+
     }
 }

@@ -17,6 +17,6 @@ namespace TheMediaEditor
         /// <param name="replaceText">action to be executed to replace the note text</param>
         /// <param name="retrieveText">action to be executed to retrieve note text</param>
         /// <param name="deleteMe">command to be executed to delete form</param>
-        void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage);
+        void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage, Action<bool> flip, Action<int> rotate);
     }
 }

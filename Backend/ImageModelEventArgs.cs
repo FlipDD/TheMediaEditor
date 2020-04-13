@@ -14,9 +14,9 @@ namespace Backend
         /// </summary>
         public Image image { get; }
 
-        public ImageModelEventArgs(Image data)
+        public ImageModelEventArgs(Image imgData)
         {
-            image = data;
+            image = imgData;
         }
     }
 }

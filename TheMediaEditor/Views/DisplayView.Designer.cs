@@ -42,8 +42,11 @@
             this.RotateButton = new TheMediaEditor.CustomRoundButton();
             this.CropButton = new TheMediaEditor.CustomRoundButton();
             this.FlipButton = new TheMediaEditor.CustomRoundButton();
+            this.FlipCheckBox = new System.Windows.Forms.CheckBox();
+            this.RotationTrackBar = new System.Windows.Forms.TrackBar();
             this.tableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RotationTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -89,37 +92,39 @@
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.SaveButton, 0, 11);
-            this.tableLayoutPanel2.Controls.Add(this.FilterButton, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.SaveButton, 0, 15);
+            this.tableLayoutPanel2.Controls.Add(this.FilterButton, 0, 11);
             this.tableLayoutPanel2.Controls.Add(this.ScaleButton, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.separatingLine1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.separatingLine2, 0, 10);
-            this.tableLayoutPanel2.Controls.Add(this.ShowButton, 0, 9);
-            this.tableLayoutPanel2.Controls.Add(this.RotateButton, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.CropButton, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.FlipButton, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.separatingLine2, 0, 14);
+            this.tableLayoutPanel2.Controls.Add(this.ShowButton, 0, 13);
+            this.tableLayoutPanel2.Controls.Add(this.RotateButton, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.CropButton, 0, 9);
+            this.tableLayoutPanel2.Controls.Add(this.FlipButton, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.FlipCheckBox, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.RotationTrackBar, 0, 6);
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.MaximumSize = new System.Drawing.Size(200, 2000);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 12;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.579565F));
+            this.tableLayoutPanel2.RowCount = 16;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.864797F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.568205F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.445154F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.445154F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.524855F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.445154F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.520461F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.05848F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.03787F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.188158F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.762959F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.112895F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.762959F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.112895F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.845659F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.112895F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.762959F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.112895F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.8411F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.301053F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.45324F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.3751F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.76553F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(130, 531);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
@@ -135,13 +140,13 @@
             this.SaveButton.FlatAppearance.BorderSize = 0;
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveButton.Location = new System.Drawing.Point(16, 479);
+            this.SaveButton.Location = new System.Drawing.Point(16, 477);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(16, 8, 16, 8);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.SaveButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.SaveButton.Size = new System.Drawing.Size(98, 44);
+            this.SaveButton.Size = new System.Drawing.Size(98, 46);
             this.SaveButton.TabIndex = 10;
             this.SaveButton.Text = "Save";
             this.SaveButton.TextColor = System.Drawing.Color.White;
@@ -159,13 +164,13 @@
             this.FilterButton.FlatAppearance.BorderSize = 0;
             this.FilterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FilterButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FilterButton.Location = new System.Drawing.Point(20, 265);
+            this.FilterButton.Location = new System.Drawing.Point(20, 321);
             this.FilterButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.FilterButton.Name = "FilterButton";
             this.FilterButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.FilterButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.FilterButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.FilterButton.Size = new System.Drawing.Size(90, 38);
+            this.FilterButton.Size = new System.Drawing.Size(90, 40);
             this.FilterButton.TabIndex = 6;
             this.FilterButton.Text = "Filters";
             this.FilterButton.TextColor = System.Drawing.Color.White;
@@ -184,13 +189,13 @@
             this.ScaleButton.FlatAppearance.BorderSize = 0;
             this.ScaleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ScaleButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ScaleButton.Location = new System.Drawing.Point(20, 89);
+            this.ScaleButton.Location = new System.Drawing.Point(20, 73);
             this.ScaleButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.ScaleButton.Name = "ScaleButton";
             this.ScaleButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.ScaleButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.ScaleButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.ScaleButton.Size = new System.Drawing.Size(90, 38);
+            this.ScaleButton.Size = new System.Drawing.Size(90, 40);
             this.ScaleButton.TabIndex = 7;
             this.ScaleButton.Text = "Scale";
             this.ScaleButton.TextColor = System.Drawing.Color.White;
@@ -207,7 +212,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 39);
+            this.label1.Size = new System.Drawing.Size(124, 41);
             this.label1.TabIndex = 10;
             this.label1.Text = "Tools";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -221,7 +226,7 @@
             this.separatingLine1.BackColor = System.Drawing.Color.Gray;
             this.separatingLine1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.separatingLine1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.separatingLine1.Location = new System.Drawing.Point(12, 39);
+            this.separatingLine1.Location = new System.Drawing.Point(12, 41);
             this.separatingLine1.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.separatingLine1.Name = "separatingLine1";
             this.separatingLine1.Size = new System.Drawing.Size(106, 2);
@@ -236,7 +241,7 @@
             this.separatingLine2.BackColor = System.Drawing.Color.Gray;
             this.separatingLine2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.separatingLine2.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.separatingLine2.Location = new System.Drawing.Point(12, 469);
+            this.separatingLine2.Location = new System.Drawing.Point(12, 467);
             this.separatingLine2.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.separatingLine2.Name = "separatingLine2";
             this.separatingLine2.Size = new System.Drawing.Size(106, 2);
@@ -254,13 +259,13 @@
             this.ShowButton.FlatAppearance.BorderSize = 0;
             this.ShowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ShowButton.Location = new System.Drawing.Point(16, 419);
+            this.ShowButton.Location = new System.Drawing.Point(16, 415);
             this.ShowButton.Margin = new System.Windows.Forms.Padding(16, 8, 16, 8);
             this.ShowButton.Name = "ShowButton";
             this.ShowButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.ShowButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.ShowButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.ShowButton.Size = new System.Drawing.Size(98, 42);
+            this.ShowButton.Size = new System.Drawing.Size(98, 44);
             this.ShowButton.TabIndex = 9;
             this.ShowButton.Text = "Show Media";
             this.ShowButton.TextColor = System.Drawing.Color.White;
@@ -278,13 +283,13 @@
             this.RotateButton.FlatAppearance.BorderSize = 0;
             this.RotateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RotateButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RotateButton.Location = new System.Drawing.Point(20, 133);
+            this.RotateButton.Location = new System.Drawing.Point(20, 135);
             this.RotateButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.RotateButton.Name = "RotateButton";
             this.RotateButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.RotateButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.RotateButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.RotateButton.Size = new System.Drawing.Size(90, 38);
+            this.RotateButton.Size = new System.Drawing.Size(90, 40);
             this.RotateButton.TabIndex = 13;
             this.RotateButton.Text = "Rotate";
             this.RotateButton.TextColor = System.Drawing.Color.White;
@@ -303,13 +308,13 @@
             this.CropButton.FlatAppearance.BorderSize = 0;
             this.CropButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CropButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CropButton.Location = new System.Drawing.Point(20, 221);
+            this.CropButton.Location = new System.Drawing.Point(20, 259);
             this.CropButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.CropButton.Name = "CropButton";
             this.CropButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.CropButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.CropButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.CropButton.Size = new System.Drawing.Size(90, 38);
+            this.CropButton.Size = new System.Drawing.Size(90, 40);
             this.CropButton.TabIndex = 8;
             this.CropButton.Text = "Crop";
             this.CropButton.TextColor = System.Drawing.Color.White;
@@ -328,18 +333,44 @@
             this.FlipButton.FlatAppearance.BorderSize = 0;
             this.FlipButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FlipButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FlipButton.Location = new System.Drawing.Point(20, 177);
+            this.FlipButton.Location = new System.Drawing.Point(20, 197);
             this.FlipButton.Margin = new System.Windows.Forms.Padding(20, 3, 20, 3);
             this.FlipButton.Name = "FlipButton";
             this.FlipButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
             this.FlipButton.OnHoverButtonColor = System.Drawing.Color.White;
             this.FlipButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.FlipButton.Size = new System.Drawing.Size(90, 38);
+            this.FlipButton.Size = new System.Drawing.Size(90, 40);
             this.FlipButton.TabIndex = 9;
             this.FlipButton.Text = "Flip";
             this.FlipButton.TextColor = System.Drawing.Color.White;
             this.FlipButton.UseVisualStyleBackColor = false;
             this.FlipButton.Click += new System.EventHandler(this.FlipButton_Click);
+            // 
+            // FlipCheckBox
+            // 
+            this.FlipCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FlipCheckBox.AutoSize = true;
+            this.FlipCheckBox.Location = new System.Drawing.Point(20, 240);
+            this.FlipCheckBox.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.FlipCheckBox.Name = "FlipCheckBox";
+            this.FlipCheckBox.Size = new System.Drawing.Size(90, 16);
+            this.FlipCheckBox.TabIndex = 14;
+            this.FlipCheckBox.Text = "Flip Vertically";
+            this.FlipCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // RotationTrackBar
+            // 
+            this.RotationTrackBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RotationTrackBar.Location = new System.Drawing.Point(3, 181);
+            this.RotationTrackBar.Maximum = 180;
+            this.RotationTrackBar.Minimum = -180;
+            this.RotationTrackBar.Name = "RotationTrackBar";
+            this.RotationTrackBar.Size = new System.Drawing.Size(124, 10);
+            this.RotationTrackBar.TabIndex = 15;
             // 
             // DisplayView
             // 
@@ -356,6 +387,7 @@
             this.tableLayoutPanel.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RotationTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -374,5 +406,7 @@
         private CustomRoundButton SaveButton;
         private CustomRoundButton ShowButton;
         private CustomRoundButton RotateButton;
+        private System.Windows.Forms.CheckBox FlipCheckBox;
+        private System.Windows.Forms.TrackBar RotationTrackBar;
     }
 }

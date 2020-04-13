@@ -31,5 +31,13 @@ namespace Backend
         /// <param name="flipVertically">If the image should be flipped vertically. Otherwise, flip it horizontally.</param>
         /// <returns>The flipped image</returns>
         Image Flip(Image image, bool flipVertically);
+
+        /// <summary>
+        /// Rotates an image
+        /// </summary>
+        /// <param name="image">The original image to be rotated</param>
+        /// <param name="degrees">How much to rotate the image by</param>
+        /// <returns>The rotated image</returns>
+        Image Rotate(Image image, int degrees);
     }
 }

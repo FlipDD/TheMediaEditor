@@ -13,11 +13,11 @@ namespace Backend
 
         private IImageEditor _imageEditor;
 
-        private Image _currentImage;
+        private Image _image;
 
         public void Initialise(Image currentImage, IImageEditor imageEditor)
         {
-            _currentImage = currentImage;
+            _image = currentImage;
             _imageEditor = imageEditor;
         }
 
@@ -28,17 +28,30 @@ namespace Backend
 
         public void SetCurrentImage(Image image)
         {
-            _currentImage = image;
+            _image = image;
         }
 
-        public Image GetCurrentImage() => _currentImage;
-        //public Image GetEditedImage() => _editedImage;
+        public Image GetCurrentImage() => _image;
 
-        public void ResizeImage(Size size)
+        #region Edits
+        public void Resize(Size size)
         {
             // SCALE _image and fire event:
-            OnImageChanged(_imageEditor.Resize(_currentImage, size));
+            OnImageChanged(_imageEditor.Resize(_image, size));
         }
+
+        public void Flip(bool flipVertically)
+        {
+            // FLIP _image and fire event:
+            OnImageChanged(_imageEditor.Flip(_image, flipVertically));
+        }
+
+        public void Rotate(int degrees)
+        {
+            // Rotate _image and fire event:
+            OnImageChanged(_imageEditor.Rotate(_image, degrees));
+        }
+        #endregion
 
         public void Subscribe(EventHandler<ImageModelEventArgs> listener)
         {
@@ -52,9 +65,17 @@ namespace Backend
 
         protected virtual void OnImageChanged(Image image)
         {
+            // Update the image in this class:
+            _image = image;
+
             // Only call it if there are any subscribers:
             if (_imageChangedEvent != null)
                 _imageChangedEvent(this, new ImageModelEventArgs(image));
+        }
+
+        protected virtual void OnFlipBoxChecked(bool flipCheck)
+        {
+
         }
     }
 }

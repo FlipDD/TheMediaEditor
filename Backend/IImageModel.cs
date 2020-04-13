@@ -13,7 +13,11 @@ namespace Backend
 
         Image GetCurrentImage();
 
-        void ResizeImage(Size size);
+        void Resize(Size size);
+
+        void Flip(bool flipVertically);
+
+        void Rotate(int degrees);
 
         void Subscribe(EventHandler<ImageModelEventArgs> listener);
 
