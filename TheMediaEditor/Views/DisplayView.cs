@@ -14,6 +14,8 @@ namespace TheMediaEditor
 
         private Action<int> _rotate;
 
+        private Action<Size> _resize;
+
         public DisplayView()
         {
             InitializeComponent();
@@ -24,12 +26,12 @@ namespace TheMediaEditor
             // SET _execute:
             _execute = execute;
 
-            // REQUEST image:
-            ICommand getImage = new Command<Size>(retrieveImage, this.PicturePanel.Size);
-            _execute(getImage);
-
             _flip = flip;
             _rotate = rotate;
+            _resize = retrieveImage;
+
+            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            _execute(resizeImage);
         }
 
         // TODO: region Implementation of IEventListener
@@ -46,7 +48,8 @@ namespace TheMediaEditor
 
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            _execute(resizeImage);
         }
 
         private void LoadButton_Click(object sender, EventArgs e)
@@ -66,19 +69,26 @@ namespace TheMediaEditor
 
         private void RotateButton_Click(object sender, EventArgs e)
         {
-            ICommand rotate = new Command<int>(_rotate, RotationTrackBar.Value);
-            _execute(rotate);
+            ICommand rotateImage = new Command<int>(_rotate, RotationTrackBar.Value);
+            _execute(rotateImage);
         }
 
-        private void FlipButton_Click(object sender, EventArgs e)
-        {
-            ICommand flip = new Command<bool>(_flip, FlipCheckBox.Checked);
-            _execute(flip);
-        }
+        //private void FlipButton_Click(object sender, EventArgs e)
+        //{
+        //    ICommand flipImage = new Command<bool>(_flip, FlipCheckBox.Checked);
+        //    _execute(flipImage);
+        //}
 
         private void ScaleButton_Click(object sender, EventArgs e)
         {
+            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            _execute(resizeImage);
+        }
 
+        private void RotationTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            ICommand rotateImage = new Command<int>(_rotate, RotationTrackBar.Value);
+            _execute(rotateImage);
         }
     }
 }

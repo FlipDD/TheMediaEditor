@@ -37,19 +37,19 @@ namespace Backend
         public void Resize(Size size)
         {
             // SCALE _image and fire event:
-            OnImageChanged(_imageEditor.Resize(_image, size));
+            OnImageChanged(_imageEditor.Resize(_image, size), false);
         }
 
         public void Flip(bool flipVertically)
         {
             // FLIP _image and fire event:
-            OnImageChanged(_imageEditor.Flip(_image, flipVertically));
+            OnImageChanged(_imageEditor.Flip(_image, flipVertically), true);
         }
 
         public void Rotate(int degrees)
         {
             // Rotate _image and fire event:
-            OnImageChanged(_imageEditor.Rotate(_image, degrees));
+            OnImageChanged(_imageEditor.Rotate(_image, degrees), false);
         }
         #endregion
 
@@ -63,10 +63,12 @@ namespace Backend
             _imageChangedEvent -= listener;
         }
 
-        protected virtual void OnImageChanged(Image image)
+        protected virtual void OnImageChanged(Image image, bool saveOriginal)
         {
             // Update the image in this class:
-            _image = image;
+            // TODO: Explain this
+            if (saveOriginal)
+                _image = image;
 
             // Only call it if there are any subscribers:
             if (_imageChangedEvent != null)

@@ -13,12 +13,11 @@ namespace Backend
         // DECLARE a IServiceLocator to store a reference to the FactoryLocator, call it _factories:
         private IServiceLocator _factories;
 
-        private IDictionary<int, IImageModel> _currentModels = new Dictionary<int, IImageModel>();
-
-        public event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
-
+        private IDictionary<int, IImageModel> _currentModels;
 
         private IImageEditor _imageEditor;
+
+        public event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
 
         #region IMPLEMENTATION of ICollectionData
         /// <summary>
@@ -29,6 +28,9 @@ namespace Backend
         {
             // Initialise _factories:
             _factories = locator;
+
+            // Initialise the _currentModels Dictionary:
+            _currentModels = new Dictionary<int, IImageModel>();
 
             // Get reference to _imageEditor:
             _imageEditor = (_factories.Get<IImageEditor>() as IFactory<IImageEditor>).Create<ImageEditor>();
