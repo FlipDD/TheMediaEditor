@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend
 {
@@ -21,36 +17,26 @@ namespace Backend
             _imageEditor = imageEditor;
         }
 
-        public void Crop()
-        {
-
-        }
-
-        public void SetCurrentImage(Image image)
-        {
-            _image = image;
-        }
-
-        public Image GetCurrentImage() => _image;
-
         #region Edits
         public void Resize(Size size)
         {
             // SCALE _image and fire event:
-            OnImageChanged(_imageEditor.Resize(_image, size), false);
-        }
-
-        public void Flip(bool flipVertically)
-        {
-            // FLIP _image and fire event:
-            OnImageChanged(_imageEditor.Flip(_image, flipVertically), true);
+            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Resize(size)), false);
+            OnScaleChanged(size.Width, size.Height);
         }
 
         public void Rotate(int degrees)
         {
             // Rotate _image and fire event:
-            OnImageChanged(_imageEditor.Rotate(_image, degrees), false);
+            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Rotate(degrees)), false);
+
         }
+        public void Flip(bool flipVertically)
+        {
+            // FLIP _image and fire event:
+            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Flip(flipVertically)), true);
+        }
+
         #endregion
 
         public void Subscribe(EventHandler<ImageModelEventArgs> listener)
@@ -63,11 +49,11 @@ namespace Backend
             _imageChangedEvent -= listener;
         }
 
-        protected virtual void OnImageChanged(Image image, bool saveOriginal)
+        protected virtual void OnImageChanged(Image image, bool overrideOriginal)
         {
             // Update the image in this class:
             // TODO: Explain this
-            if (saveOriginal)
+            if (overrideOriginal)
                 _image = image;
 
             // Only call it if there are any subscribers:
@@ -75,9 +61,11 @@ namespace Backend
                 _imageChangedEvent(this, new ImageModelEventArgs(image));
         }
 
-        protected virtual void OnFlipBoxChecked(bool flipCheck)
+        protected virtual void OnScaleChanged(int width, int height)
         {
-
+            // Only call it if there are any subscribers:
+            if (_imageChangedEvent != null)
+                _imageChangedEvent(this, new ImageModelEventArgs(width, height));
         }
     }
 }

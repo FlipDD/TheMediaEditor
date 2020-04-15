@@ -11,8 +11,6 @@ namespace Backend
     {
         void Initialise(Image currentImage, IImageEditor imageEditor);
 
-        Image GetCurrentImage();
-
         void Resize(Size size);
 
         void Flip(bool flipVertically);

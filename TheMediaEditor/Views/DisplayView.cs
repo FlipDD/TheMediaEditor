@@ -15,22 +15,24 @@ namespace TheMediaEditor
         private Action<int> _rotate;
 
         private Action<Size> _resize;
+        
+        private Action<int, int, int, int> _crop;
 
         public DisplayView()
         {
             InitializeComponent();
         }
 
-        public void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage, Action<bool> flip, Action<int> rotate)
+        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate)
         {
             // SET _execute:
             _execute = execute;
 
+            _resize = resize;
             _flip = flip;
             _rotate = rotate;
-            _resize = retrieveImage;
 
-            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            ICommand resizeImage = new Command<Size>(_resize, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
@@ -42,46 +44,49 @@ namespace TheMediaEditor
             if (args.image != null)
             {
                 // Update the Image in picturePanel:
-                PicturePanel.BackgroundImage = args.image;
+                PictureBox.Image = args.image;
             }
+
+            if (args.width != 0)
+                WidthNumUpDown.Value = args.width;
+            if (args.height != 0)
+                HeightNumUpDown.Value = args.height;
+        }
+
+        public void OnScaleChanged(object source, ImageModelEventArgs args)
+        {
+            //if (args.width != 0)
+            //    WidthNumUpDown.Value = args.width;
+            //if (args.height != 0)
+            //    HeightNumUpDown.Value = args.height;
+        }
+
+        public void OnCropChanged(object source, ImageModelEventArgs args)
+        {
+            if (args.width != 0)
+                WidthNumUpDown.Value = args.width;
+            if (args.height != 0)
+                HeightNumUpDown.Value = args.height;
         }
 
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            ICommand resizeImage = new Command<Size>(_resize, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
-        private void LoadButton_Click(object sender, EventArgs e)
+        private void WidthNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            ICommand resizeImage = new Command<Size>(_resize, new Size((int)WidthNumUpDown.Value, (int)HeightNumUpDown.Value));
+            _execute(resizeImage);
         }
 
-        private void FilterButton_Click(object sender, EventArgs e)
+        private void HeightNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void CropButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RotateButton_Click(object sender, EventArgs e)
-        {
-            ICommand rotateImage = new Command<int>(_rotate, RotationTrackBar.Value);
-            _execute(rotateImage);
-        }
-
-        //private void FlipButton_Click(object sender, EventArgs e)
-        //{
-        //    ICommand flipImage = new Command<bool>(_flip, FlipCheckBox.Checked);
-        //    _execute(flipImage);
-        //}
-
-        private void ScaleButton_Click(object sender, EventArgs e)
-        {
-            ICommand resizeImage = new Command<Size>(_resize, this.PicturePanel.Size);
+            ICommand resizeImage = new Command<Size>(
+                _resize, new Size(
+                (int) WidthNumUpDown.Value,
+                (int) HeightNumUpDown.Value));
             _execute(resizeImage);
         }
 
@@ -89,6 +94,18 @@ namespace TheMediaEditor
         {
             ICommand rotateImage = new Command<int>(_rotate, RotationTrackBar.Value);
             _execute(rotateImage);
+        }
+
+        private void FlipHorizontalButton_Click(object sender, EventArgs e)
+        {
+            ICommand flipImage = new Command<bool>(_flip, false);
+            _execute(flipImage);
+        }
+
+        private void FlipVerticalButton_Click(object sender, EventArgs e)
+        {
+            ICommand flipImage = new Command<bool>(_flip, true);
+            _execute(flipImage);
         }
     }
 }

@@ -10,13 +10,13 @@ namespace TheMediaEditor
     public interface IDisplayView
     {
         /// <summary>
-        /// Constructor for objects of type FishyNote.
+        /// Constructor for objects of type DisplayView
         /// </summary>
-        /// <param name="execute">the command executor delegate</param>
-        /// <param name="retrieveImage">action to be executed to retrieve an image</param>
-        /// <param name="replaceText">action to be executed to replace the note text</param>
-        /// <param name="retrieveText">action to be executed to retrieve note text</param>
-        /// <param name="deleteMe">command to be executed to delete form</param>
+        /// <param name="execute"></param>
+        /// <param name="retrieveImage"></param>
+        /// <param name="flip"></param>
+        /// <param name="rotate"></param>
+        /// <param name="crop"></param>
         void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage, Action<bool> flip, Action<int> rotate);
     }
 }

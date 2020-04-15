@@ -51,7 +51,7 @@ namespace Backend
             var size = new Size(150, 150);
             panel.Tag = index;
             panel.Size = size;
-            panel.BackgroundImage = _imageEditor.Resize(imageToAdd, size);
+            panel.BackgroundImage = _imageEditor.ProcessImage(imageToAdd, im => im.Resize(size));
             panel.BackgroundImageLayout = ImageLayout.Center;
             panel.BackColor = Color.BlanchedAlmond;
 

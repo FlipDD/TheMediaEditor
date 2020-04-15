@@ -84,6 +84,7 @@ namespace TheMediaEditor
                 _currentImageModel = _collectionData.GetImageModel(indexSelected);
                 //TODO do we need to subscribe every time if its the same class? Is it not? should we unsubscribe when we close??
                 _currentImageModel.Subscribe(_displayView.OnImageChanged);
+                _currentImageModel.Subscribe(_displayView.OnScaleChanged);
                 _displayView.Initialise(ExecuteCommand, _currentImageModel.Resize, _currentImageModel.Flip, _currentImageModel.Rotate);
 
                 _displayView.Show();

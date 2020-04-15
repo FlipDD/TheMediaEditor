@@ -14,9 +14,17 @@ namespace Backend
         /// </summary>
         public Image image { get; }
 
-        public ImageModelEventArgs(Image imgData)
+        public int width { get; }
+        public int height { get; }
+
+        public ImageModelEventArgs(Image image)
         {
-            image = imgData;
+            this.image = image;
+        }
+        public ImageModelEventArgs(int width, int height)
+        {
+            this.width = width;
+            this.height = height;
         }
     }
 }
