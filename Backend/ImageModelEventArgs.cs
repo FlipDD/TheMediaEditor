@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend
 {
@@ -14,7 +10,13 @@ namespace Backend
         /// </summary>
         public Image image { get; }
 
+        /// <summary>
+        /// Property to hold the updated width (if any)
+        /// </summary>
         public int width { get; }
+        /// <summary>
+        /// Property to hold the updated height (if any)
+        /// </summary>
         public int height { get; }
 
         public ImageModelEventArgs(Image image)

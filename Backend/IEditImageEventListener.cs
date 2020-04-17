@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
-    public interface IEditorListener
+    public interface IEditImageEventListener
     {
-        void OnNewImages(object source, ImageModelEventArgs args);
+        void OnImageEdited(object source, ImageModelEventArgs args);
     }
 }

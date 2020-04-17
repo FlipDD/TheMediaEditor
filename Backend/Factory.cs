@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Backend
+﻿namespace Backend
 {
     /// <summary>
     /// Implementation of a factory that returns implementations of a specific abstraction (eg interface) E

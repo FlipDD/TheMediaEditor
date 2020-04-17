@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Backend
 {
-    public class CollectionData : ICollectionData
+    public class CollectionData : ICollectionData, IAddImageEventPublisher
     {
         // DECLARE a IServiceLocator to store a reference to the FactoryLocator, call it _factories:
         private IServiceLocator _factories;
@@ -17,7 +15,7 @@ namespace Backend
 
         private IImageEditor _imageEditor;
 
-        public event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
+        private event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
 
         #region IMPLEMENTATION of ICollectionData
         /// <summary>
@@ -38,6 +36,18 @@ namespace Backend
         #endregion
 
         public IImageModel GetImageModel(int index) => _currentModels[index];
+
+        public void BrowseImages()
+        {
+            var imageBrowser = (_factories.Get<IImageBrowser>() as IFactory<IImageBrowser>).Create<ImageBrowser>();
+            IList<string> imagePaths = imageBrowser.BrowseNewImages();
+
+            foreach (var path in imagePaths)
+            {
+                Image imageFound = Bitmap.FromFile(Path.GetFullPath(path));
+                AddControl(imageFound);
+            }
+        }
 
         public void AddControl(Image imageToAdd)
         {

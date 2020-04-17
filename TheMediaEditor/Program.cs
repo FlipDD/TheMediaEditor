@@ -16,7 +16,8 @@ namespace TheMediaEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
+            // Initiate application by instantiating Controller:
             var Controller = new Controller();
         }
     }

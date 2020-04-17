@@ -5,107 +5,122 @@ using System.Windows.Forms;
 
 namespace TheMediaEditor
 {
-    public partial class DisplayView : Form, IDisplayView
+    public partial class DisplayView : Form, IDisplayView, IEditImageEventListener
     {
         // DECLARE a ExecuteDelegate to store the delegate to be called to issue a command:
         private ExecuteDelegate _execute;
 
-        private Action<bool> _flip;
+        // DECLARE an Action<Size> to store the action to be executed when image is resized, call it _resizeAction:
+        private Action<Size> _resizeAction;
 
-        private Action<int> _rotate;
+        // DECLARE an Action<int> to store the action to be executed when image is rotated, call it _rotateAction:
+        private Action<int> _rotateAction;
 
-        private Action<Size> _resize;
-        
-        private Action<int, int, int, int> _crop;
+        // DECLARE an Action<bool> to store the action to be executed when image is flipped, call it _flipAction:
+        private Action<bool> _flipAction;
 
-        public DisplayView()
-        {
-            InitializeComponent();
-        }
+        // DECLARE an Action<int> to store the action to be executed when we apply a filter to the image, call it _filterAction:
+        private Action<int> _filterAction;
 
-        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate)
+        private ICommand _saveAsCommand;
+
+        public DisplayView() => InitializeComponent();
+
+        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate, Action<int> filter, ICommand save)
         {
             // SET _execute:
             _execute = execute;
 
-            _resize = resize;
-            _flip = flip;
-            _rotate = rotate;
+            // SET _resizeAction to resize
+            _resizeAction += resize;
+            // SET _flipAction to flip
+            _flipAction += flip;
+            // SET _rotateAction to rotate
+            _rotateAction += rotate;
 
-            ICommand resizeImage = new Command<Size>(_resize, this.PictureBox.Size);
+            _saveAsCommand = save;
+
+            _filterAction = filter;
+
+            ICommand filterImage = new Command<int>(_filterAction, 1);
+            _execute(filterImage);
+
+            // Resize the image to fit the picture box
+            ICommand resizeImage = new Command<Size>(_resizeAction, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
         // TODO: region Implementation of IEventListener
         // Updates the current image being displayed
-        public void OnImageChanged(object source, ImageModelEventArgs args)
+        public void OnImageEdited(object source, ImageModelEventArgs args)
         {
             // Check for new image data:
             if (args.image != null)
             {
                 // Update the Image in picturePanel:
                 PictureBox.Image = args.image;
+
+                BWPictureBox.Image = args.image;
             }
 
-            if (args.width != 0)
+            // Check for new size data:
+            if (args.width != 0 || args.height != 0)
+            {
+                // Update the value of the NumsUpDown in the ToolsLayoutPanel:
                 WidthNumUpDown.Value = args.width;
-            if (args.height != 0)
                 HeightNumUpDown.Value = args.height;
-        }
 
-        public void OnScaleChanged(object source, ImageModelEventArgs args)
-        {
-            //if (args.width != 0)
-            //    WidthNumUpDown.Value = args.width;
-            //if (args.height != 0)
-            //    HeightNumUpDown.Value = args.height;
-        }
-
-        public void OnCropChanged(object source, ImageModelEventArgs args)
-        {
-            if (args.width != 0)
-                WidthNumUpDown.Value = args.width;
-            if (args.height != 0)
-                HeightNumUpDown.Value = args.height;
+            }
         }
 
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            ICommand resizeImage = new Command<Size>(_resize, this.PictureBox.Size);
+            // Call _resizeAction:
+            ICommand resizeImage = new Command<Size>(_resizeAction, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
         private void WidthNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            ICommand resizeImage = new Command<Size>(_resize, new Size((int)WidthNumUpDown.Value, (int)HeightNumUpDown.Value));
+            // Call _resizeAction:
+            ICommand resizeImage = new Command<Size>(_resizeAction, new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
             _execute(resizeImage);
         }
 
         private void HeightNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            ICommand resizeImage = new Command<Size>(
-                _resize, new Size(
-                (int) WidthNumUpDown.Value,
-                (int) HeightNumUpDown.Value));
+            // Call _resizeAction:
+            ICommand resizeImage = new Command<Size>(_resizeAction, new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
             _execute(resizeImage);
         }
 
         private void RotationTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            ICommand rotateImage = new Command<int>(_rotate, RotationTrackBar.Value);
+            ICommand rotateImage = new Command<int>(_rotateAction, RotationTrackBar.Value);
             _execute(rotateImage);
         }
 
         private void FlipHorizontalButton_Click(object sender, EventArgs e)
         {
-            ICommand flipImage = new Command<bool>(_flip, false);
+            ICommand flipImage = new Command<bool>(_flipAction, false);
             _execute(flipImage);
         }
 
         private void FlipVerticalButton_Click(object sender, EventArgs e)
         {
-            ICommand flipImage = new Command<bool>(_flip, true);
+            ICommand flipImage = new Command<bool>(_flipAction, true);
             _execute(flipImage);
+        }
+
+        private void DisplayView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to close the editor?", "Close window", MessageBoxButtons.YesNo) == DialogResult.No)
+                e.Cancel = true;
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            _execute(_saveAsCommand);
         }
     }
 }

@@ -1,23 +1,27 @@
-﻿using System;
+﻿using ImageProcessor.Imaging.Filters.Photo;
+using System;
 using System.Drawing;
 
 namespace Backend
 {
-    public class ImageModel : IImageModel
+    public class ImageModel : IImageModel, IEditImageEventPublisher
     {
-        public event EventHandler<ImageModelEventArgs> _imageChangedEvent;
+        private event EventHandler<ImageModelEventArgs> _imageChangedEvent;
 
         private IImageEditor _imageEditor;
 
+        private IImageSaver _imageSaver;
+
         private Image _image;
 
-        public void Initialise(Image currentImage, IImageEditor imageEditor)
+        public void Initialise(Image currentImage, IImageEditor imageEditor, IImageSaver imageSaver)
         {
             _image = currentImage;
             _imageEditor = imageEditor;
+            _imageSaver = imageSaver;
         }
 
-        #region Edits
+        #region Processing the image
         public void Resize(Size size)
         {
             // SCALE _image and fire event:
@@ -28,13 +32,26 @@ namespace Backend
         public void Rotate(int degrees)
         {
             // Rotate _image and fire event:
-            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Rotate(degrees)), false);
+            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Rotate(degrees)), true);
 
         }
         public void Flip(bool flipVertically)
         {
             // FLIP _image and fire event:
             OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Flip(flipVertically)), true);
+        }
+
+        public void Filter(int id)
+        {
+            IMatrixFilter filterType = MatrixFilters.Comic;
+            switch (id)
+            {
+                case 1:
+                    filterType = MatrixFilters.BlackWhite;
+                    break;
+            }
+            // Filter _image and fire event:
+            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Filter(filterType)), false);
         }
 
         #endregion

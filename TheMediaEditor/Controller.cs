@@ -1,13 +1,6 @@
 ﻿using Backend;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using TheMediaEditor.Views;
-using System.Drawing;
-using System.IO;
 
 namespace TheMediaEditor
 {
@@ -17,16 +10,13 @@ namespace TheMediaEditor
     class Controller
     {
         // DECLARE an IServiceLocator to refer to the factory locator, call it _factoryLocator:
-        IServiceLocator _factoryLocator;
+        private IServiceLocator _factoryLocator;
 
-        // DECLARE an ICollectionData to store the collection, call it _collectionData:
-        private ICollectionData _collectionData;
-
+        // DECLARE a DisplayView to store the Form, call it _displayView:
         private DisplayView _displayView;
 
-        private IImageModel _currentImageModel;
-
-        private bool flipChecked = false;
+        // DECLARE an ICollectionData to store the image collect, call it _collectionData:
+        private ICollectionData _collectionData;
 
         public Controller()
         {
@@ -35,13 +25,15 @@ namespace TheMediaEditor
 
             // Instantiate a CollectionData to store all images in, store it as an ICollectionData and call it _collectionData:
             _collectionData = (_factoryLocator.Get<ICollectionData>() as IFactory<ICollectionData>).Create<CollectionData>();
+            
             // Inject _factoryLocator through to collectionData:
             _collectionData.InjectFactory(_factoryLocator);
 
-            var collectionView = new CollectionView(BrowseImages, SetupDisplayView);
+            var collectionView = new Views.CollectionView(_collectionData.BrowseImages, SetupDisplayView);
 
-            _collectionData.Subscribe(collectionView.OnImageAdded);
-            
+            (_collectionData as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
+
+            // Fire-up UI by instantiating FishyNotes:
             Application.Run(collectionView);
         }
 
@@ -54,23 +46,6 @@ namespace TheMediaEditor
             command.Execute();
         }
 
-        #region Delegate Implementations
-        /// <summary>
-        /// Implementation of the StrategyDelegate, browses for new images.
-        /// </summary>
-        public void BrowseImages()
-        {
-            var imageBrowser = (_factoryLocator.Get<IImageBrowser>() as IFactory<IImageBrowser>).Create<ImageBrowser>();
-            IList<string> imagePaths = imageBrowser.BrowseNewImages();
-
-            foreach (var path in imagePaths)
-            {
-                Image imageFound = Bitmap.FromFile(Path.GetFullPath(path));
-                _collectionData.AddControl(imageFound);
-            }
-        }
-        #endregion
-
         private void SetupDisplayView(object sender, EventArgs args)
         {
             var panel = (Panel) sender;
@@ -78,18 +53,17 @@ namespace TheMediaEditor
             if (!Int32.TryParse(panel.Tag.ToString(), out indexSelected))
                 return;
 
-            if (_displayView == null)
-            {
-                _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
-                _currentImageModel = _collectionData.GetImageModel(indexSelected);
-                //TODO do we need to subscribe every time if its the same class? Is it not? should we unsubscribe when we close??
-                _currentImageModel.Subscribe(_displayView.OnImageChanged);
-                _currentImageModel.Subscribe(_displayView.OnScaleChanged);
-                _displayView.Initialise(ExecuteCommand, _currentImageModel.Resize, _currentImageModel.Flip, _currentImageModel.Rotate);
+            _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
+            var imageModel = _collectionData.GetImageModel(indexSelected);
 
-                _displayView.Show();
-            }
+            // Subscribe new DisplayView to 'data-changed' events:
+            (imageModel as IEditImageEventPublisher).Subscribe(_displayView.OnImageEdited);
+
+            // Initialise new DisplayView:
+            _displayView.Initialise(ExecuteCommand, imageModel.Resize, imageModel.Flip, imageModel.Rotate, imageModel.Filter);
+
+            // Show the DisplayView: 
+            _displayView.Show();
         }
-
-    }
+     }
 }

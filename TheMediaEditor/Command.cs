@@ -3,33 +3,6 @@
 namespace TheMediaEditor
 {
     /// <summary>
-    /// Non-generic Command class, executes an action with no parameters.
-    /// </summary>
-    public class Command : ICommand
-    {
-        // DECLARE an to be executed by this command, call it _action:
-        private Action _action;
-
-        /// <summary>
-        /// Constructor of objects of type Command
-        /// </summary>
-        /// <param name="action">The action to be executed by this command</param>
-        public Command(Action action)
-        {
-            // Assign action and size:
-            _action = action;
-        }
-
-        /// <summary>
-        /// Execute the command.
-        /// </summary>
-        public void Execute()
-        {
-            _action();
-        }
-    }
-
-    /// <summary>
     /// Generic Command class, which provides for a single parameter of type T for Execute.
     /// </summary>
     /// <typeparam name="T"></typeparam>
