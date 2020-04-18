@@ -22,11 +22,12 @@ namespace TheMediaEditor
         // DECLARE an Action<int> to store the action to be executed when we apply a filter to the image, call it _filterAction:
         private Action<int> _filterAction;
 
-        private ICommand _saveAsCommand;
+        // DECLARE a StrategyDelegate to be used for saving images, call it _saveImage:
+        private StrategyDelegate _saveImage;
 
         public DisplayView() => InitializeComponent();
 
-        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate, Action<int> filter, ICommand save)
+        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate, Action<int> filter, StrategyDelegate save)
         {
             // SET _execute:
             _execute = execute;
@@ -38,7 +39,7 @@ namespace TheMediaEditor
             // SET _rotateAction to rotate
             _rotateAction += rotate;
 
-            _saveAsCommand = save;
+            _saveImage = save;
 
             _filterAction = filter;
 
@@ -120,7 +121,7 @@ namespace TheMediaEditor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            _execute(_saveAsCommand);
+            _saveImage();
         }
     }
 }

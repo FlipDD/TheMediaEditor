@@ -99,14 +99,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
-      <Project>{5ba469ed-9eff-4c5f-81c5-b9711c5ef10e}</Project>
-      <Name>Backend</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Properties\Icons\FlipHorizontalIcon.png" />
     <Content Include="Properties\Icons\FlipVerticalIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Backend\Backend.csproj">
+      <Project>{5BA469ED-9EFF-4C5F-81C5-B9711C5EF10E}</Project>
+      <Name>Backend</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

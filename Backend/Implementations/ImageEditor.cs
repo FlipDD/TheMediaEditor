@@ -22,11 +22,11 @@ namespace Backend
                 using (var imageStream = new MemoryStream())
                 {
                     // Create an ImageFactory to store the result of loading:
-                    ImageFactory loadResult = imageFactory.Load(image);
+                    var loadResult = imageFactory.Load(image);
                     // Create an ImageFactory to store the result of the processing
                     // the process() will be a Func delegate that receives and returns an
                     // ImageFactory, which will be use to call the specified processing method:
-                    ImageFactory processResult = process(loadResult);
+                    var processResult = process(loadResult);
 
                     // Save the result into the stream:
                     processResult.Save(imageStream);

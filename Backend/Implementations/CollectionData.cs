@@ -8,14 +8,14 @@ namespace Backend
 {
     public class CollectionData : ICollectionData, IAddImageEventPublisher
     {
+        // DECLARE an event for storing images added event handlers, call it _controlAddedEvent:
+        private event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
+
         // DECLARE a IServiceLocator to store a reference to the FactoryLocator, call it _factories:
         private IServiceLocator _factories;
 
+        // DECLARE a Dictionary<int, IImageModel> to store all image data and logic, call it _currentModels:
         private IDictionary<int, IImageModel> _currentModels;
-
-        private IImageEditor _imageEditor;
-
-        private event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
 
         #region IMPLEMENTATION of ICollectionData
         /// <summary>
@@ -29,9 +29,6 @@ namespace Backend
 
             // Initialise the _currentModels Dictionary:
             _currentModels = new Dictionary<int, IImageModel>();
-
-            // Get reference to _imageEditor:
-            _imageEditor = (_factories.Get<IImageEditor>() as IFactory<IImageEditor>).Create<ImageEditor>();
         }
         #endregion
 
@@ -40,28 +37,29 @@ namespace Backend
         public void BrowseImages()
         {
             var imageBrowser = (_factories.Get<IImageBrowser>() as IFactory<IImageBrowser>).Create<ImageBrowser>();
-            IList<string> imagePaths = imageBrowser.BrowseNewImages();
+            var imagePaths = imageBrowser.BrowseNewImages();
 
             foreach (var path in imagePaths)
             {
-                Image imageFound = Bitmap.FromFile(Path.GetFullPath(path));
+                var imageFound = Bitmap.FromFile(Path.GetFullPath(path));
                 AddControl(imageFound);
             }
         }
 
         public void AddControl(Image imageToAdd)
         {
-            int index = _currentModels.Count;
-            IImageModel imageModel = (_factories.Get<IImageModel>() as IFactory<IImageModel>).Create<ImageModel>();
-            imageModel.Initialise(imageToAdd, _imageEditor);
-
+            var imageModel = (_factories.Get<IImageModel>() as IFactory<IImageModel>).Create<ImageModel>();
+            var imageEditor = (_factories.Get<IImageEditor>() as IFactory<IImageEditor>).Create<ImageEditor>();
+            var index = _currentModels.Count;
             _currentModels.Add(index, imageModel);
+
+            imageModel.Initialise(imageToAdd, imageEditor, (_factories.Get<IImageSaver>() as IFactory<IImageSaver>).Create<ImageSaver>());
 
             var panel = new Panel();
             var size = new Size(150, 150);
             panel.Tag = index;
             panel.Size = size;
-            panel.BackgroundImage = _imageEditor.ProcessImage(imageToAdd, im => im.Resize(size));
+            panel.BackgroundImage = imageEditor.ProcessImage(imageToAdd, im => im.Resize(size));
             panel.BackgroundImageLayout = ImageLayout.Center;
             panel.BackColor = Color.BlanchedAlmond;
 

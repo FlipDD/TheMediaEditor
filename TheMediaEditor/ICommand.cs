@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TheMediaEditor
+﻿namespace TheMediaEditor
 {
     /// <summary>
     /// ICommand interface - all commands must implement this.

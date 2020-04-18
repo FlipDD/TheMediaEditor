@@ -1,6 +1,7 @@
 ﻿using ImageProcessor.Imaging.Filters.Photo;
 using System;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace Backend
 {
@@ -14,6 +15,15 @@ namespace Backend
 
         private Image _image;
 
+        private Size _currentSize;
+
+        #region Implementation of IImageModel
+        /// <summary>
+        /// Constructor for objects of type ImageModel
+        /// </summary>
+        /// <param name="currentImage">The image associated with this model</param>
+        /// <param name="imageEditor">The ImageEditor used to edit the image (Resize, Flip, Rotate)</param>
+        /// <param name="imageSaver">The ImageSaver used to save the image to a specific path/filename</param>
         public void Initialise(Image currentImage, IImageEditor imageEditor, IImageSaver imageSaver)
         {
             _image = currentImage;
@@ -21,20 +31,32 @@ namespace Backend
             _imageSaver = imageSaver;
         }
 
-        #region Processing the image
+        /// <summary>
+        /// Scale and image
+        /// </summary>
+        /// <param name="size">The new size the image should be scaled to</param>
         public void Resize(Size size)
         {
             // SCALE _image and fire event:
+            _currentSize = size;
             OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Resize(size)), false);
             OnScaleChanged(size.Width, size.Height);
         }
 
+        /// <summary>
+        /// Rotate an image
+        /// </summary>
+        /// <param name="degrees">The amount the image should be rotate by (in degrees)</param>
         public void Rotate(int degrees)
         {
             // Rotate _image and fire event:
             OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Rotate(degrees)), true);
-
         }
+
+        /// <summary>
+        /// Flip an image
+        /// </summary>
+        /// <param name="flipVertically">If the image should be flipped vertically or horizontally</param>
         public void Flip(bool flipVertically)
         {
             // FLIP _image and fire event:
@@ -54,18 +76,41 @@ namespace Backend
             OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Filter(filterType)), false);
         }
 
+        /// <summary>
+        /// Save an image to a user specified path/filename
+        /// </summary>
+        public void SaveAs()
+        {
+            _imageSaver.SaveImage(_image);
+        }
         #endregion
 
+        #region Implementation of IEditImageEventPublisher
+        /// <summary>
+        /// Subscribe a listener to image events
+        /// </summary>
+        /// <param name="listener">reference to the listener method</param>
         public void Subscribe(EventHandler<ImageModelEventArgs> listener)
         {
             _imageChangedEvent += listener;
         }
 
+        /// <summary>
+        /// Unsubscribe a listener to image events
+        /// </summary>
+        /// <param name="listener">reference to the listener method</param>
         public void Unsubscribe(EventHandler<ImageModelEventArgs> listener)
         {
             _imageChangedEvent -= listener;
         }
+        #endregion
 
+        #region private methods
+        /// <summary>
+        /// Called when an image is edited (Rotated, Flipped, Resized)
+        /// </summary>
+        /// <param name="image">The image</param>
+        /// <param name="overrideOriginal"></param>
         protected virtual void OnImageChanged(Image image, bool overrideOriginal)
         {
             // Update the image in this class:
@@ -84,5 +129,6 @@ namespace Backend
             if (_imageChangedEvent != null)
                 _imageChangedEvent(this, new ImageModelEventArgs(width, height));
         }
+        #endregion
     }
 }

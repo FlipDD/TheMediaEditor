@@ -1,0 +1,9 @@
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\bin\Release\Backend.dll
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\bin\Release\Backend.pdb
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\bin\Release\ImageProcessor.dll
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\bin\Release\ImageProcessor.xml
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\obj\Release\Backend.csprojAssemblyReference.cache
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\obj\Release\Backend.csproj.CoreCompileInputs.cache
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\obj\Release\Backend.csproj.CopyComplete
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\obj\Release\Backend.dll
+C:\Users\flipd\source\repos\TheMediaEditor\Backend\obj\Release\Backend.pdb

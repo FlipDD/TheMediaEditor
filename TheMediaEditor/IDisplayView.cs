@@ -16,6 +16,6 @@ namespace TheMediaEditor
         /// <param name="retrieveImage"></param>
         /// <param name="flip"></param>
         /// <param name="rotate"></param>
-        void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage, Action<bool> flip, Action<int> rotate, Action<int> filter, Action save);
+        void Initialise(ExecuteDelegate execute, Action<Size> retrieveImage, Action<bool> flip, Action<int> rotate, Action<int> filter, StrategyDelegate save);
     }
 }

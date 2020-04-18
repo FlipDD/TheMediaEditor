@@ -46,27 +46,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionData.cs" />
-    <Compile Include="IAddImageEventListener.cs" />
-    <Compile Include="IAddImageEventPublisher.cs" />
-    <Compile Include="ICollectionData.cs" />
-    <Compile Include="IEditImageEventListener.cs" />
-    <Compile Include="IEditImageEventPublisher.cs" />
-    <Compile Include="ImageAddedEventArgs.cs" />
-    <Compile Include="ImageClickedEventArgs.cs" />
-    <Compile Include="ImageModelEventArgs.cs" />
-    <Compile Include="Factory.cs" />
-    <Compile Include="FactoryLocator.cs" />
-    <Compile Include="IImageModel.cs" />
-    <Compile Include="IFactory.cs" />
-    <Compile Include="IImageBrowser.cs" />
-    <Compile Include="IImageEditor.cs" />
-    <Compile Include="ImageBrowser.cs" />
-    <Compile Include="ImageEditor.cs" />
-    <Compile Include="ImageSaver.cs" />
-    <Compile Include="IService.cs" />
-    <Compile Include="IServiceLocator.cs" />
-    <Compile Include="ImageModel.cs" />
+    <Compile Include="Implementations\CollectionData.cs" />
+    <Compile Include="Interfaces\IAddImageEventListener.cs" />
+    <Compile Include="Interfaces\IAddImageEventPublisher.cs" />
+    <Compile Include="Interfaces\ICollectionData.cs" />
+    <Compile Include="Interfaces\IEditImageEventListener.cs" />
+    <Compile Include="Interfaces\IEditImageEventPublisher.cs" />
+    <Compile Include="Interfaces\IImageSaver.cs" />
+    <Compile Include="Implementations\ImageAddedEventArgs.cs" />
+    <Compile Include="Implementations\ImageClickedEventArgs.cs" />
+    <Compile Include="Implementations\ImageModelEventArgs.cs" />
+    <Compile Include="Implementations\Factory.cs" />
+    <Compile Include="Implementations\FactoryLocator.cs" />
+    <Compile Include="Interfaces\IImageModel.cs" />
+    <Compile Include="Interfaces\IFactory.cs" />
+    <Compile Include="Interfaces\IImageBrowser.cs" />
+    <Compile Include="Interfaces\IImageEditor.cs" />
+    <Compile Include="Implementations\ImageBrowser.cs" />
+    <Compile Include="Implementations\ImageEditor.cs" />
+    <Compile Include="Implementations\ImageSaver.cs" />
+    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\IServiceLocator.cs" />
+    <Compile Include="Implementations\ImageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

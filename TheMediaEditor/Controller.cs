@@ -12,9 +12,6 @@ namespace TheMediaEditor
         // DECLARE an IServiceLocator to refer to the factory locator, call it _factoryLocator:
         private IServiceLocator _factoryLocator;
 
-        // DECLARE a DisplayView to store the Form, call it _displayView:
-        private DisplayView _displayView;
-
         // DECLARE an ICollectionData to store the image collect, call it _collectionData:
         private ICollectionData _collectionData;
 
@@ -29,11 +26,13 @@ namespace TheMediaEditor
             // Inject _factoryLocator through to collectionData:
             _collectionData.InjectFactory(_factoryLocator);
 
+            // Declare a create a temporary CollectionView and pass in the strategy delegate and the action:
             var collectionView = new Views.CollectionView(_collectionData.BrowseImages, SetupDisplayView);
 
+            // Subscribe to ImageAdded events:
             (_collectionData as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
 
-            // Fire-up UI by instantiating FishyNotes:
+            // Fire-up UI by instantiating CollectionView:
             Application.Run(collectionView);
         }
 
@@ -53,17 +52,20 @@ namespace TheMediaEditor
             if (!Int32.TryParse(panel.Tag.ToString(), out indexSelected))
                 return;
 
-            _displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
+            // Create a DisplayView Form:
+            var displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
+
+            // Create 
             var imageModel = _collectionData.GetImageModel(indexSelected);
 
-            // Subscribe new DisplayView to 'data-changed' events:
-            (imageModel as IEditImageEventPublisher).Subscribe(_displayView.OnImageEdited);
+            // Subscribe to ImageEdited events:
+            (imageModel as IEditImageEventPublisher).Subscribe(displayView.OnImageEdited);
 
-            // Initialise new DisplayView:
-            _displayView.Initialise(ExecuteCommand, imageModel.Resize, imageModel.Flip, imageModel.Rotate, imageModel.Filter);
+            // Initialise new DisplayView, passing in Commands:
+            displayView.Initialise(ExecuteCommand, imageModel.Resize, imageModel.Flip, imageModel.Rotate, imageModel.Filter, imageModel.SaveAs);
 
             // Show the DisplayView: 
-            _displayView.Show();
+            displayView.Show();
         }
      }
 }

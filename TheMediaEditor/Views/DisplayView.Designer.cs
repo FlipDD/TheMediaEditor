@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayView));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.SaveButton = new TheMediaEditor.CustomRoundButton();
             this.ToolsLabel = new System.Windows.Forms.Label();
             this.separatingLine2 = new System.Windows.Forms.Label();
             this.RotationTrackBar = new System.Windows.Forms.TrackBar();
@@ -66,7 +67,6 @@
             this.InvertPictureBox = new System.Windows.Forms.PictureBox();
             this.OriginalLabel = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
-            this.SaveButton = new TheMediaEditor.CustomRoundButton();
             this.tableLayoutPanel.SuspendLayout();
             this.ToolsLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationTrackBar)).BeginInit();
@@ -155,6 +155,31 @@
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.30406F));
             this.ToolsLayoutPanel.Size = new System.Drawing.Size(162, 629);
             this.ToolsLayoutPanel.TabIndex = 7;
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.Transparent;
+            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
+            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.Location = new System.Drawing.Point(16, 566);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(16, 8, 16, 8);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
+            this.SaveButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
+            this.SaveButton.Size = new System.Drawing.Size(130, 55);
+            this.SaveButton.TabIndex = 10;
+            this.SaveButton.Text = "Save as...";
+            this.SaveButton.TextColor = System.Drawing.Color.White;
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // ToolsLabel
             // 
@@ -677,31 +702,6 @@
             this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.PictureBox.TabIndex = 8;
             this.PictureBox.TabStop = false;
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.BackColor = System.Drawing.Color.Transparent;
-            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
-            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveButton.Location = new System.Drawing.Point(16, 566);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(16, 8, 16, 8);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
-            this.SaveButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.SaveButton.Size = new System.Drawing.Size(130, 55);
-            this.SaveButton.TabIndex = 10;
-            this.SaveButton.Text = "Save as...";
-            this.SaveButton.TextColor = System.Drawing.Color.White;
-            this.SaveButton.UseVisualStyleBackColor = false;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // DisplayView
             // 
