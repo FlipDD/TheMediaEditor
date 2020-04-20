@@ -31,6 +31,11 @@ namespace Backend
             _imageSaver = imageSaver;
         }
 
+        public void Edit(Action<Image> image)
+        {
+
+        }
+
         /// <summary>
         /// Scale and image
         /// </summary>
