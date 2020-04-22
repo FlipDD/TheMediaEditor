@@ -5,54 +5,88 @@ using System.Windows.Forms;
 
 namespace TheMediaEditor
 {
+    /// <summary>
+    /// A View to hold the Image selected and the buttons to perform image editing and saving the result
+    /// </summary>
     public partial class DisplayView : Form, IDisplayView, IEditImageEventListener
     {
         // DECLARE a ExecuteDelegate to store the delegate to be called to issue a command:
         private ExecuteDelegate _execute;
 
-        // DECLARE an Action<Size> to store the action to be executed when image is resized, call it _resizeAction:
+        // DECLARE an Action<Size> to store the action to be executed when the image is resized, call it _resizeAction:
         private Action<Size> _resizeAction;
 
-        // DECLARE an Action<int> to store the action to be executed when image is rotated, call it _rotateAction:
+        // DECLARE an Action<int> to store the action to be executed when the image is rotated, call it _rotateAction:
         private Action<int> _rotateAction;
 
-        // DECLARE an Action<bool> to store the action to be executed when image is flipped, call it _flipAction:
+        // DECLARE an Action<bool> to store the action to be executed when the image is flipped, call it _flipAction:
         private Action<bool> _flipAction;
 
         // DECLARE an Action<int> to store the action to be executed when we apply a filter to the image, call it _filterAction:
-        private Action<int> _filterAction;
+        //private Action<int> _filterAction;
+
+        //// DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
+        //private StrategyDelegate _blackWhiteFilter;
+        //// DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
+        //private StrategyDelegate _resetEdits;
+        //// DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
+        //private StrategyDelegate _resetEdits;
+        //// DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
+        //private StrategyDelegate _resetEdits;
+
+        // DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
+        private StrategyDelegate _resetEdits;
 
         // DECLARE a StrategyDelegate to be used for saving images, call it _saveImage:
         private StrategyDelegate _saveImage;
 
-        public DisplayView() => InitializeComponent();
+        /// <summary>
+        /// Initialize the controls of this View 
+        /// </summary>
+        public DisplayView()
+        {
+            InitializeComponent();
+        }
 
-        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate, Action<int> filter, StrategyDelegate save)
+        /// <summary>
+        /// Constructor for objects of type DisplayView
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="resize"></param>
+        /// <param name="flip"></param>
+        /// <param name="rotate"></param>
+        /// <param name="filter"></param>
+        /// <param name="save"></param>
+        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate, StrategyDelegate reset, StrategyDelegate save)
         {
             // SET _execute:
             _execute = execute;
 
-            // SET _resizeAction to resize
+            // SET _resizeAction to resize:
             _resizeAction += resize;
-            // SET _flipAction to flip
+            // SET _flipAction to flip:
             _flipAction += flip;
-            // SET _rotateAction to rotate
+            // SET _rotateAction to rotate:
             _rotateAction += rotate;
 
+            // SET _resetAction to reset:
+            _resetEdits += reset;
+
+            // SET _saveImage to save:
             _saveImage = save;
-
-            _filterAction = filter;
-
-            ICommand filterImage = new Command<int>(_filterAction, 1);
-            _execute(filterImage);
 
             // Resize the image to fit the picture box
             ICommand resizeImage = new Command<Size>(_resizeAction, this.PictureBox.Size);
             _execute(resizeImage);
+
+
+            // TODO - DELETE THIS ///////////////////////////////////
+            //_filterAction = filter;
+            //ICommand filterImage = new Command<int>(_filterAction, 1);
+            //_execute(filterImage);
+            ////////////////////////////////////////////////////////
         }
 
-        // TODO: region Implementation of IEventListener
-        // Updates the current image being displayed
         public void OnImageEdited(object source, ImageModelEventArgs args)
         {
             // Check for new image data:
@@ -61,7 +95,7 @@ namespace TheMediaEditor
                 // Update the Image in picturePanel:
                 PictureBox.Image = args.image;
 
-                BWPictureBox.Image = args.image;
+                //BWPictureBox.Image = args.image;
             }
 
             // Check for new size data:
@@ -70,7 +104,6 @@ namespace TheMediaEditor
                 // Update the value of the NumsUpDown in the ToolsLayoutPanel:
                 WidthNumUpDown.Value = args.width;
                 HeightNumUpDown.Value = args.height;
-
             }
         }
 
@@ -113,15 +146,29 @@ namespace TheMediaEditor
             _execute(flipImage);
         }
 
+
+
         private void DisplayView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to close the editor?", "Close window", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (MessageBox.Show("Are you sure you want to close the editor?", 
+                "Close window", MessageBoxButtons.YesNo) == DialogResult.No)
                 e.Cancel = true;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             _saveImage();
+        }
+
+        private void BWButton_Click(object sender, EventArgs e)
+        {
+            //ICommand filterImage = new Command<bool>(_filterAction, true);
+            //_execute(filterImage);
+        }
+
+        private void ResetButton_Click(object sender, EventArgs e)
+        {
+            _resetEdits();
         }
     }
 }

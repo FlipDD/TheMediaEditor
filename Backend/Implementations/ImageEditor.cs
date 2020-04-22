@@ -2,9 +2,13 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 
 namespace Backend
 {
+    /// <summary>
+    /// ImageEditor class, used to edit Images (rotate, resize, etc) using the ImageProcessor class
+    /// </summary>
     class ImageEditor : IImageEditor
     {
         /// <summary>
@@ -26,7 +30,8 @@ namespace Backend
                     // Create an ImageFactory to store the result of the processing
                     // the process() will be a Func delegate that receives and returns an
                     // ImageFactory, which will be use to call the specified processing method:
-                    var processResult = process(loadResult);
+                    var processResult = /*process.Aggregate(loadResult, (r, p) = p(r));*/process(loadResult);
+                    //var processResult = process.Aggregate(loadResult, (r, p) = p(r))
 
                     // Save the result into the stream:
                     processResult.Save(imageStream);

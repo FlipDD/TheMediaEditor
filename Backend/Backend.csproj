@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\CollectionData.cs" />
+    <Compile Include="Interfaces\IModelEdits.cs" />
     <Compile Include="Interfaces\IAddImageEventListener.cs" />
     <Compile Include="Interfaces\IAddImageEventPublisher.cs" />
     <Compile Include="Interfaces\ICollectionData.cs" />
@@ -54,7 +55,6 @@
     <Compile Include="Interfaces\IEditImageEventPublisher.cs" />
     <Compile Include="Interfaces\IImageSaver.cs" />
     <Compile Include="Implementations\ImageAddedEventArgs.cs" />
-    <Compile Include="Implementations\ImageClickedEventArgs.cs" />
     <Compile Include="Implementations\ImageModelEventArgs.cs" />
     <Compile Include="Implementations\Factory.cs" />
     <Compile Include="Implementations\FactoryLocator.cs" />

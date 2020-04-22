@@ -2,6 +2,9 @@
 
 namespace Backend
 {
+    /// <summary>
+    /// Interface for the ImageSaver used to save images to files
+    /// </summary>
     public interface IImageSaver
     {
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace Backend
 {
+    /// <summary>
+    /// IServiceLocator interface 
+    /// </summary>
     public interface IServiceLocator
     {
         /// <summary>

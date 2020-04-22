@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace Backend
 {
+    /// <summary>
+    /// Class ImageSaver, used to save Drawing.Image to a specific path
+    /// </summary>
     class ImageSaver : IImageSaver
     {
         // DECLARE a constant string to be used to limit the type of files (images) a user can save as, call it _fileTypes:

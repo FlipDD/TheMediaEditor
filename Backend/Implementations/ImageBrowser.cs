@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace Backend
 {
+    /// <summary>
+    /// Class ImageBrowser used to browse for new images and limit how many images are added
+    /// </summary>
     public class ImageBrowser : IImageBrowser
     {
         // DECLARE a constant string to be used in a MessageBox if the application is occupying to much memory, call it __processTooBigMessage:
@@ -15,8 +18,8 @@ namespace Backend
         // DECLARE a constant string to be used to limit the type of files (images) a user can search for, call it _filterTypes:
         private const string _filterTypes = "Image files (*.jpg, *.jpeg, *.gif, *.bmp, *.png) | *.jpg; *.jpeg; *.gif; *.bmp; *.png";
 
-        // DECLARE a constant string to be used in a MessageBox in case the application is occupying to much memory, call it _filesTooBigMessage:
-        private const string _filesTooBigMessage = "The files selected are more than 20MB.Please select smaller files or less at a time";
+        // DECLARE a constant string to be used in a MessageBox in case the files selected exceed 30MB, call it _filesTooBigMessage:
+        private const string _filesTooBigMessage = "The files selected are more than 30MB. Please select smaller files or less at a time";
 
         /// <summary>
         /// Browse for new images with the Windows Explorer limiting the number and size of files a user can upload.
@@ -33,8 +36,8 @@ namespace Backend
             // Create a float and set it to the current memory being occupied, in Megabytes (divide by 1000000):
             var processSize = currentProc.PrivateMemorySize64 / 1000000f;
 
-            // If the processSize is bigger than 1.5GB:
-            if (processSize > 1500)
+            // If the processSize is bigger than 4GB:
+            if (processSize > 4000)
             {
                 // Show a MessageBox warning the user that he added too many (or too big) images:
                 MessageBox.Show(_processTooBigMessage);
@@ -66,13 +69,13 @@ namespace Backend
                 // If we selected Images, assign their paths to filePaths:
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // IEnumerable<long> to store the size of each fire:
+                    // IEnumerable<long> to store the size of each file:
                     var filesSize = fileDialog.FileNames.Select(file => new FileInfo(file).Length);
                     // Float to store the size in Megabytes (divide by 1e+6):
                     var filesSizeSum = filesSize.Sum() / 1000000f;
 
                     // Show a message box if the size of all files selected exceed 20MB. Don't assign it to the filePaths list if they do:
-                    if (filesSizeSum > 20)
+                    if (filesSizeSum > 30)
                         MessageBox.Show(_filesTooBigMessage);
                     // Assign the list of file paths to filePaths:
                     else

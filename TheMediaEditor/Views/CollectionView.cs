@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace TheMediaEditor.Views
 {
+    /// <summary>
+    /// A View to hold the images the user loads into the program
+    /// </summary>
     public partial class CollectionView : Form, IAddImageEventListener
     {
         // DECLARE a StrategyDelegate to be used for browsing new images, call it _browseImages:
@@ -22,11 +25,18 @@ namespace TheMediaEditor.Views
             // Base Form initializations:
             InitializeComponent();
 
+            //SET _browseImages to browseImages:
             _browseImages = browseImages;
+            //SET _browseImages to browseImages:
             _openImageEditor = openImageEditor;
         }
 
-        #region Implementation of IEventListener
+        #region Implementation of IAddImageEventListener
+        /// <summary>
+        /// Callback for when images are added
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="args">Argument containing the new panel added (if any)</param>
         public void OnImageAdded(object source, ImageAddedEventArgs args)
         {
             // Check for new panel data:

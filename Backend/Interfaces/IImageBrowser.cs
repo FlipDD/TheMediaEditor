@@ -2,6 +2,9 @@
 
 namespace Backend
 {
+    /// <summary>
+    /// ImageBrowser interface used to browse new images
+    /// </summary>
     public interface IImageBrowser
     {
         /// <summary>

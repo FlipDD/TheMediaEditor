@@ -1,21 +1,35 @@
 ﻿using ImageProcessor.Imaging.Filters.Photo;
 using System;
 using System.Drawing;
-using System.Runtime.CompilerServices;
+using System.Drawing.Imaging;
 
 namespace Backend
 {
-    public class ImageModel : IImageModel, IEditImageEventPublisher
+    /// <summary>
+    /// ImageModel class. Contains data and logic for the images
+    /// </summary>
+    public class ImageModel : IImageModel, IEditImageEventPublisher, IModelEdits
     {
+        // DECLARE an EventHandler of ImageModelEventArgs to handle ImageModel events, call it _imageChangedEvent:
         private event EventHandler<ImageModelEventArgs> _imageChangedEvent;
 
+        // DECLARE an IImageEditor to handle editing of images, call it _imageEditor: 
         private IImageEditor _imageEditor;
 
+        // DECLARE an IImageSaver to handle the saving of images to a file, call it _imageSaver:
         private IImageSaver _imageSaver;
 
+        // DECLARE an Image that will be edited by the user, call it _image:
         private Image _image;
 
+        // DECLARE an Image that will be hold a copy of the original image, call it _originalImage:
+        private Image _originalImage;
+
+        // DECLARE a Size that will hold the current size of the image, call it _currentSize:
         private Size _currentSize;
+
+        // DECLARE an int that will hold the amount in degrees the image was rotated, call it _currentDegrees:
+        private int _currentDegrees;
 
         #region Implementation of IImageModel
         /// <summary>
@@ -27,25 +41,39 @@ namespace Backend
         public void Initialise(Image currentImage, IImageEditor imageEditor, IImageSaver imageSaver)
         {
             _image = currentImage;
+            _originalImage = _image;
             _imageEditor = imageEditor;
             _imageSaver = imageSaver;
         }
 
-        public void Edit(Action<Image> image)
+        /// <summary>
+        /// Save an image to a user specified path/filename
+        /// </summary>
+        public void SaveAs()
         {
+            // Apply all the edits before saving the image using the stored values:
+            _imageEditor.ProcessImage(_image, factory => factory.Resize(_currentSize).Rotate(_currentDegrees));
 
+            // Save the image:
+            _imageSaver.SaveImage(_image);
         }
+        #endregion
 
+        #region Implentation of IModelEdits
         /// <summary>
         /// Scale and image
         /// </summary>
         /// <param name="size">The new size the image should be scaled to</param>
         public void Resize(Size size)
         {
-            // SCALE _image and fire event:
+            // Set the current size to be the size passed in:
             _currentSize = size;
-            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Resize(size)), false);
-            OnScaleChanged(size.Width, size.Height);
+
+            // SCALE _image and fire event:
+            OnImageChanged(_imageEditor
+                .ProcessImage(_image, factory => factory
+                .Resize(size)
+                .Rotate(_currentDegrees)));
         }
 
         /// <summary>
@@ -54,8 +82,14 @@ namespace Backend
         /// <param name="degrees">The amount the image should be rotate by (in degrees)</param>
         public void Rotate(int degrees)
         {
+            // Set the current degrees to be the degrees passed in:
+            _currentDegrees = degrees;
+
             // Rotate _image and fire event:
-            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Rotate(degrees)), true);
+            OnImageChanged(_imageEditor
+                .ProcessImage(_image, factory => factory
+                .Rotate(degrees)
+                .Resize(_currentSize)));
         }
 
         /// <summary>
@@ -65,28 +99,48 @@ namespace Backend
         public void Flip(bool flipVertically)
         {
             // FLIP _image and fire event:
-            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Flip(flipVertically)), true);
-        }
-
-        public void Filter(int id)
-        {
-            IMatrixFilter filterType = MatrixFilters.Comic;
-            switch (id)
-            {
-                case 1:
-                    filterType = MatrixFilters.BlackWhite;
-                    break;
-            }
-            // Filter _image and fire event:
-            OnImageChanged(_imageEditor.ProcessImage(_image, im => im.Filter(filterType)), false);
+            OnImageChanged(_imageEditor
+                .ProcessImage(_image, factory => factory
+                .Flip(flipVertically)
+                .Resize(_currentSize)
+                .Rotate(_currentDegrees)));
         }
 
         /// <summary>
-        /// Save an image to a user specified path/filename
+        /// Filter an image
         /// </summary>
-        public void SaveAs()
+        public void FilterBlackWhite()
         {
-            _imageSaver.SaveImage(_image);
+            // Filter _image and fire event:
+            OnImageChanged(_imageEditor.ProcessImage(_image, factory => factory.Filter(MatrixFilters.BlackWhite)));
+        }
+        public void FilterComic()
+        {
+            OnImageChanged(_imageEditor.ProcessImage(_image, factory => factory.Filter(MatrixFilters.Comic)));
+        }
+        public void FilterLomograph()
+        {
+            OnImageChanged(_imageEditor.ProcessImage(_image, factory => factory.Filter(MatrixFilters.Lomograph)));
+        }
+        public void FilterSepia()
+        {
+            OnImageChanged(_imageEditor.ProcessImage(_image, factory => factory.Filter(MatrixFilters.Sepia)));
+        }
+        public void FilterInvert()
+        {
+            OnImageChanged(_imageEditor.ProcessImage(_image, factory => factory.Filter(MatrixFilters.Invert)));
+        }
+
+        /// <summary>
+        /// Resets the editing made to the image
+        /// </summary>
+        public void ResetEdits()
+        {
+            // Set the _image to be the _originalImage, removing any edits previously made:
+            _image = _originalImage;
+
+            // Reset _image and fire event:
+            OnImageChanged(_image);
         }
         #endregion
 
@@ -116,23 +170,11 @@ namespace Backend
         /// </summary>
         /// <param name="image">The image</param>
         /// <param name="overrideOriginal"></param>
-        protected virtual void OnImageChanged(Image image, bool overrideOriginal)
+        protected virtual void OnImageChanged(Image image)
         {
-            // Update the image in this class:
-            // TODO: Explain this
-            if (overrideOriginal)
-                _image = image;
-
             // Only call it if there are any subscribers:
             if (_imageChangedEvent != null)
                 _imageChangedEvent(this, new ImageModelEventArgs(image));
-        }
-
-        protected virtual void OnScaleChanged(int width, int height)
-        {
-            // Only call it if there are any subscribers:
-            if (_imageChangedEvent != null)
-                _imageChangedEvent(this, new ImageModelEventArgs(width, height));
         }
         #endregion
     }

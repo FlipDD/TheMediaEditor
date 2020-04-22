@@ -2,6 +2,9 @@
 
 namespace Backend
 {
+    /// <summary>
+    /// An event publisher. Allows subscription to ImageAdded events
+    /// </summary>
     public interface IAddImageEventPublisher
     {
         /// <summary>
