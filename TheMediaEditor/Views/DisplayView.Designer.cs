@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayView));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.SaveButton = new TheMediaEditor.CustomRoundButton();
             this.ToolsLabel = new System.Windows.Forms.Label();
             this.separatingLine2 = new System.Windows.Forms.Label();
             this.RotationTrackBar = new System.Windows.Forms.TrackBar();
@@ -53,6 +54,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.OriginalButton = new TheMediaEditor.CustomRoundButton();
+            this.BWButton = new TheMediaEditor.CustomRoundButton();
+            this.ComicButton = new TheMediaEditor.CustomRoundButton();
+            this.LomoButton = new TheMediaEditor.CustomRoundButton();
+            this.SepiaButton = new TheMediaEditor.CustomRoundButton();
+            this.InvertButton = new TheMediaEditor.CustomRoundButton();
+            this.ResetButton = new TheMediaEditor.CustomRoundButton();
             this.ConstrastLabel = new System.Windows.Forms.Label();
             this.ContrastTrackBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,14 +69,6 @@
             this.SaturationTrackBar = new System.Windows.Forms.TrackBar();
             this.SaturationLabel = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
-            this.SaveButton = new TheMediaEditor.CustomRoundButton();
-            this.OriginalButton = new TheMediaEditor.CustomRoundButton();
-            this.BWButton = new TheMediaEditor.CustomRoundButton();
-            this.ComicButton = new TheMediaEditor.CustomRoundButton();
-            this.LomoButton = new TheMediaEditor.CustomRoundButton();
-            this.SepiaButton = new TheMediaEditor.CustomRoundButton();
-            this.InvertButton = new TheMediaEditor.CustomRoundButton();
-            this.ResetButton = new TheMediaEditor.CustomRoundButton();
             this.tableLayoutPanel.SuspendLayout();
             this.ToolsLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationTrackBar)).BeginInit();
@@ -170,6 +170,31 @@
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.365915F));
             this.ToolsLayoutPanel.Size = new System.Drawing.Size(163, 632);
             this.ToolsLayoutPanel.TabIndex = 7;
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.Transparent;
+            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
+            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.Location = new System.Drawing.Point(30, 584);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(30, 8, 30, 8);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
+            this.SaveButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
+            this.SaveButton.Size = new System.Drawing.Size(103, 40);
+            this.SaveButton.TabIndex = 10;
+            this.SaveButton.Text = "Save as...";
+            this.SaveButton.TextColor = System.Drawing.Color.White;
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // ToolsLabel
             // 
@@ -528,131 +553,6 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(157, 69);
             this.tableLayoutPanel5.TabIndex = 31;
             // 
-            // ConstrastLabel
-            // 
-            this.ConstrastLabel.AutoSize = true;
-            this.ConstrastLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ConstrastLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.ConstrastLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.ConstrastLabel.Location = new System.Drawing.Point(3, 371);
-            this.ConstrastLabel.Name = "ConstrastLabel";
-            this.ConstrastLabel.Size = new System.Drawing.Size(157, 21);
-            this.ConstrastLabel.TabIndex = 33;
-            this.ConstrastLabel.Text = "Contrast";
-            this.ConstrastLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ContrastTrackBar
-            // 
-            this.ContrastTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ContrastTrackBar.Location = new System.Drawing.Point(3, 395);
-            this.ContrastTrackBar.Maximum = 100;
-            this.ContrastTrackBar.Name = "ContrastTrackBar";
-            this.ContrastTrackBar.Size = new System.Drawing.Size(157, 18);
-            this.ContrastTrackBar.TabIndex = 34;
-            this.ContrastTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.ContrastTrackBar.ValueChanged += new System.EventHandler(this.ContrastTrackBar_ValueChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Gray;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label3.Location = new System.Drawing.Point(12, 366);
-            this.label3.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 2);
-            this.label3.TabIndex = 35;
-            // 
-            // BrightnessLabel
-            // 
-            this.BrightnessLabel.AutoSize = true;
-            this.BrightnessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BrightnessLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.BrightnessLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.BrightnessLabel.Location = new System.Drawing.Point(3, 419);
-            this.BrightnessLabel.Name = "BrightnessLabel";
-            this.BrightnessLabel.Size = new System.Drawing.Size(157, 21);
-            this.BrightnessLabel.TabIndex = 36;
-            this.BrightnessLabel.Text = "Brightness";
-            this.BrightnessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // BrightnessTrackBar
-            // 
-            this.BrightnessTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BrightnessTrackBar.Location = new System.Drawing.Point(3, 443);
-            this.BrightnessTrackBar.Maximum = 100;
-            this.BrightnessTrackBar.Name = "BrightnessTrackBar";
-            this.BrightnessTrackBar.Size = new System.Drawing.Size(157, 18);
-            this.BrightnessTrackBar.TabIndex = 37;
-            this.BrightnessTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.BrightnessTrackBar.ValueChanged += new System.EventHandler(this.BrightnessTrackBar_ValueChanged);
-            // 
-            // SaturationTrackBar
-            // 
-            this.SaturationTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.SaturationTrackBar.Location = new System.Drawing.Point(3, 491);
-            this.SaturationTrackBar.Maximum = 100;
-            this.SaturationTrackBar.Name = "SaturationTrackBar";
-            this.SaturationTrackBar.Size = new System.Drawing.Size(157, 18);
-            this.SaturationTrackBar.TabIndex = 38;
-            this.SaturationTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.SaturationTrackBar.ValueChanged += new System.EventHandler(this.SaturationTrackBar_ValueChanged);
-            // 
-            // SaturationLabel
-            // 
-            this.SaturationLabel.AutoSize = true;
-            this.SaturationLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.SaturationLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.SaturationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.SaturationLabel.Location = new System.Drawing.Point(3, 467);
-            this.SaturationLabel.Name = "SaturationLabel";
-            this.SaturationLabel.Size = new System.Drawing.Size(157, 21);
-            this.SaturationLabel.TabIndex = 39;
-            this.SaturationLabel.Text = "Saturation";
-            this.SaturationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // PictureBox
-            // 
-            this.PictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox.Image")));
-            this.PictureBox.Location = new System.Drawing.Point(172, 3);
-            this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(709, 632);
-            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PictureBox.TabIndex = 8;
-            this.PictureBox.TabStop = false;
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.BackColor = System.Drawing.Color.Transparent;
-            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
-            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveButton.Location = new System.Drawing.Point(30, 584);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(30, 8, 30, 8);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
-            this.SaveButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.SaveButton.Size = new System.Drawing.Size(103, 40);
-            this.SaveButton.TabIndex = 10;
-            this.SaveButton.Text = "Save as...";
-            this.SaveButton.TextColor = System.Drawing.Color.White;
-            this.SaveButton.UseVisualStyleBackColor = false;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
             // OriginalButton
             // 
             this.OriginalButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -821,6 +721,106 @@
             this.ResetButton.TextColor = System.Drawing.Color.White;
             this.ResetButton.UseVisualStyleBackColor = false;
             this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // ConstrastLabel
+            // 
+            this.ConstrastLabel.AutoSize = true;
+            this.ConstrastLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ConstrastLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.ConstrastLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.ConstrastLabel.Location = new System.Drawing.Point(3, 371);
+            this.ConstrastLabel.Name = "ConstrastLabel";
+            this.ConstrastLabel.Size = new System.Drawing.Size(157, 21);
+            this.ConstrastLabel.TabIndex = 33;
+            this.ConstrastLabel.Text = "Contrast";
+            this.ConstrastLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ContrastTrackBar
+            // 
+            this.ContrastTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ContrastTrackBar.Location = new System.Drawing.Point(3, 395);
+            this.ContrastTrackBar.Maximum = 100;
+            this.ContrastTrackBar.Name = "ContrastTrackBar";
+            this.ContrastTrackBar.Size = new System.Drawing.Size(157, 18);
+            this.ContrastTrackBar.TabIndex = 34;
+            this.ContrastTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.ContrastTrackBar.ValueChanged += new System.EventHandler(this.ContrastTrackBar_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Gray;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label3.Location = new System.Drawing.Point(12, 366);
+            this.label3.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(139, 2);
+            this.label3.TabIndex = 35;
+            // 
+            // BrightnessLabel
+            // 
+            this.BrightnessLabel.AutoSize = true;
+            this.BrightnessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BrightnessLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.BrightnessLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.BrightnessLabel.Location = new System.Drawing.Point(3, 419);
+            this.BrightnessLabel.Name = "BrightnessLabel";
+            this.BrightnessLabel.Size = new System.Drawing.Size(157, 21);
+            this.BrightnessLabel.TabIndex = 36;
+            this.BrightnessLabel.Text = "Brightness";
+            this.BrightnessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BrightnessTrackBar
+            // 
+            this.BrightnessTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrightnessTrackBar.Location = new System.Drawing.Point(3, 443);
+            this.BrightnessTrackBar.Maximum = 100;
+            this.BrightnessTrackBar.Name = "BrightnessTrackBar";
+            this.BrightnessTrackBar.Size = new System.Drawing.Size(157, 18);
+            this.BrightnessTrackBar.TabIndex = 37;
+            this.BrightnessTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.BrightnessTrackBar.ValueChanged += new System.EventHandler(this.BrightnessTrackBar_ValueChanged);
+            // 
+            // SaturationTrackBar
+            // 
+            this.SaturationTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SaturationTrackBar.Location = new System.Drawing.Point(3, 491);
+            this.SaturationTrackBar.Maximum = 100;
+            this.SaturationTrackBar.Name = "SaturationTrackBar";
+            this.SaturationTrackBar.Size = new System.Drawing.Size(157, 18);
+            this.SaturationTrackBar.TabIndex = 38;
+            this.SaturationTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.SaturationTrackBar.ValueChanged += new System.EventHandler(this.SaturationTrackBar_ValueChanged);
+            // 
+            // SaturationLabel
+            // 
+            this.SaturationLabel.AutoSize = true;
+            this.SaturationLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.SaturationLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.SaturationLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.SaturationLabel.Location = new System.Drawing.Point(3, 467);
+            this.SaturationLabel.Name = "SaturationLabel";
+            this.SaturationLabel.Size = new System.Drawing.Size(157, 21);
+            this.SaturationLabel.TabIndex = 39;
+            this.SaturationLabel.Text = "Saturation";
+            this.SaturationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PictureBox
+            // 
+            this.PictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox.Image")));
+            this.PictureBox.Location = new System.Drawing.Point(172, 3);
+            this.PictureBox.Name = "PictureBox";
+            this.PictureBox.Size = new System.Drawing.Size(709, 632);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PictureBox.TabIndex = 8;
+            this.PictureBox.TabStop = false;
             // 
             // DisplayView
             // 

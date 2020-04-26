@@ -11,7 +11,7 @@ namespace Backend
         /// <summary>
         /// Property to hold the new panel
         /// </summary>
-        public Panel panel { get; }
+        public Panel PanelData { get; }
 
         /// <summary>
         /// Constructor for objects of type ImageAddedEventArgs
@@ -19,7 +19,7 @@ namespace Backend
         /// <param name="panelData">The panel added</param>
         public ImageAddedEventArgs(Panel panelData)
         {
-            panel = panelData;
+            PanelData = panelData;
         }
     }
 }

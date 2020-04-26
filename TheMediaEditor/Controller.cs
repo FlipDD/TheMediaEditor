@@ -1,5 +1,6 @@
 ﻿using Backend;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace TheMediaEditor
@@ -14,6 +15,9 @@ namespace TheMediaEditor
 
         // DECLARE an ICollectionData to store the image collect, call it _collectionData:
         private ICollectionData _collectionData;
+
+        // DECLARE an EditMethods to store the image editing methods to use, call it _editMethods:
+        private EditActions _editMethods;
 
         /// <summary>
         /// Constructor of the Controller class
@@ -49,6 +53,11 @@ namespace TheMediaEditor
             command.Execute();
         }
 
+        private void SetupEditingMethods()
+        {
+
+        }
+
         /// <summary>
         /// Setup the DisplayView to be added (the image editor window)
         /// </summary>
@@ -77,12 +86,12 @@ namespace TheMediaEditor
             // Get the Interface IModelEdits containing the methods used to edit the images:
             var modelEdits = (imageModel as IModelEdits);
 
+            _editMethods = (_factoryLocator.Get<EditActions>() as IFactory<EditActions>).Create<EditActions>();
+            _editMethods.ResizeAction = modelEdits.Resize;
+            _editMethods.FlipAction = modelEdits.Flip;
+            
             // Initialise new DisplayView, passing in Commands:
-            displayView.Initialise(ExecuteCommand, modelEdits.Resize, modelEdits.Flip, modelEdits.Rotate, 
-                modelEdits.Contrast, modelEdits.Brightness, modelEdits.Saturation,
-                modelEdits.FilterOriginal, modelEdits.FilterBlackWhite, modelEdits.FilterComic, 
-                modelEdits.FilterLomograph, modelEdits.FilterSepia, modelEdits.FilterInvert,
-                modelEdits.ResetEdits, imageModel.SaveAs);
+            displayView.Initialise(ExecuteCommand, _editMethods, imageModel.SaveAs);
 
             // Show the DisplayView: 
             displayView.Show();

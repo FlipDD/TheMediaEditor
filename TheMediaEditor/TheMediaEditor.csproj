@@ -52,7 +52,7 @@
     <Compile Include="CustomRoundButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StrategyDelegate.cs" />
+    <Compile Include="EditActions.cs" />
     <Compile Include="ExecuteDelegate.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IDisplayView.cs" />

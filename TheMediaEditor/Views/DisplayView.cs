@@ -13,42 +13,11 @@ namespace TheMediaEditor
         // DECLARE a ExecuteDelegate to store the delegate to be called to issue a command:
         private ExecuteDelegate _execute;
 
-        // DECLARE an Action<Size> to store the action to be executed when the image is resized, call it _resizeAction:
-        private Action<Size> _resizeAction;
+        // DECLARE an EditActions that will be used to store all the actions used to edit the image, call it _editActions:
+        EditActions _editActions;
 
-        // DECLARE an Action<int> to store the action to be executed when the image is rotated, call it _rotateAction:
-        private Action<int> _rotateAction;
-
-        // DECLARE an Action<bool> to store the action to be executed when the image is flipped, call it _flipAction:
-        private Action<bool> _flipAction;
-
-        // DECLARE an Action<int> to store the action to be executed when we apply contrast to the image, call it _contrastAction:
-        private Action<int> _contrastAction;
-
-        // DECLARE an Action<int> to store the action to be executed when we apply brightness to the image, call it _brightnessAction:
-        private Action<int> _brightnessAction;
-
-        // DECLARE an Action<int> to store the action to be executed when we apply saturation to the image, call it _saturationAction:
-        private Action<int> _saturationAction;
-
-        // DECLARE a StrategyDelegate to be used when we remove the filters of the image, call it _removeFilter:
-        private StrategyDelegate _removeFilter;
-        // DECLARE a StrategyDelegate to be used when we apply a black and white filter to the image, call it _blackWhiteFilter:
-        private StrategyDelegate _blackWhiteFilter;
-        // DECLARE a StrategyDelegate to be used when we apply a comic filter to the image, call it _comicFilter:
-        private StrategyDelegate _comicFilter;
-        // DECLARE a StrategyDelegate to be used when we apply a lomography filter to the image, call it _lomoFilter:
-        private StrategyDelegate _lomoFilter;
-        // DECLARE a StrategyDelegate to be used when we apply a sepia filter to the image, call it _sepiaFilter:
-        private StrategyDelegate _sepiaFilter;
-        // DECLARE a StrategyDelegate to be used when we apply an invert filter to the image, call it _invertFilter:
-        private StrategyDelegate _invertFilter;
-
-        // DECLARE a StrategyDelegate to be used when the image is reseted to its original state, call it _resetAction:
-        private StrategyDelegate _resetEdits;
-
-        // DECLARE a StrategyDelegate to be used for saving images, call it _saveImage:
-        private StrategyDelegate _saveImage;
+        // DECLARE an Action to be executed for saving images, call it _saveImage:
+        private Action _saveImage;
 
         /// <summary>
         /// Initialize the controls of this View 
@@ -62,78 +31,42 @@ namespace TheMediaEditor
         /// Constructor for objects of type DisplayView
         /// </summary>
         /// <param name="execute"></param>
-        /// <param name="resize"></param>
-        /// <param name="flip"></param>
-        /// <param name="rotate"></param>
-        /// <param name="filter"></param>
+        /// <param name="editActions"></param>
         /// <param name="save"></param>
-        public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate,
-            Action<int> contrast, Action<int> brightness, Action<int> saturation,
-           StrategyDelegate filterOriginal, StrategyDelegate filterBlackWhite, StrategyDelegate filterComic, 
-           StrategyDelegate filterLomo, StrategyDelegate filterSepia, StrategyDelegate filterInvert,
-           StrategyDelegate reset, StrategyDelegate save)
+        public void Initialise(ExecuteDelegate execute, EditActions editActions, Action save)
         {
             // SET _execute:
             _execute = execute;
 
-            // SET _resizeAction to resize:
-            _resizeAction += resize;
-            // SET _flipAction to flip:
-            _flipAction += flip;
-            // SET _rotateAction to rotate:
-            _rotateAction += rotate;
-
-            // SET _contrastAction to contrast:
-            _contrastAction = contrast;
-            // SET _brightnessAction  to brightness:
-            _brightnessAction = brightness;
-            // SET _saturationAction to saturation:
-            _saturationAction = saturation;
-
-            // SET _resetAction to reset:
-            _resetEdits += reset;
+            // SET _editActions
+            _editActions = editActions;
 
             // SET _saveImage to save:
             _saveImage = save;
 
-            // SET _removeFilter to filterOriginal:
-            _removeFilter = filterOriginal;
-            // SET _blackWhiteFilter to filterBlackWhite:
-            _blackWhiteFilter = filterBlackWhite;
-            // SET _comicFilter to filterComic:
-            _comicFilter = filterComic;
-            // SET _lomoFilter to filterLomo:
-            _lomoFilter = filterLomo;
-            // SET _sepiaFilter to filterSepia:
-            _sepiaFilter = filterSepia;
-            // SET _invertFilter to filterInvert:
-            _invertFilter = filterInvert;
-
             // Resize the image to fit the picture box
-            ICommand resizeImage = new Command<Size>(_resizeAction, this.PictureBox.Size);
+            ICommand resizeImage = new Command<Size>(_editActions.ResizeAction, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
         public void OnImageEdited(object source, ImageModelEventArgs args)
         {
             // Check for new image data:
-            if (args.image != null)
+            if (args.Img != null)
             {
                 // Update the Image in picturePanel:
-                PictureBox.Image = args.image;
+                PictureBox.Image = args.Img;
 
                 //BWPictureBox.Image = args.image;
             }
 
             // Check for new size data:
-            if (args.width != 0 || args.height != 0)
+            if (args.Width != 0 || args.Height != 0)
             {
                 // Update the value of the NumsUpDown in the ToolsLayoutPanel:
-                WidthNumUpDown.Value = args.width;
-                HeightNumUpDown.Value = args.height;
+                WidthNumUpDown.Value = args.Width;
+                HeightNumUpDown.Value = args.Height;
             }
-
-
 
             //// Check for new rotation data:
             //if (args.degrees != 0)
@@ -150,8 +83,8 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            // Call _resizeAction:
-            ICommand resizeImage = new Command<Size>(_resizeAction, this.PictureBox.Size);
+            // Call ResizeAction:
+            ICommand resizeImage = new Command<Size>(_editActions.ResizeAction, this.PictureBox.Size);
             _execute(resizeImage);
         }
 
@@ -162,8 +95,9 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void WidthNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            // Call _resizeAction with the values of the NumUpDown of width and height:
-            ICommand resizeImage = new Command<Size>(_resizeAction, new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
+            // Call ResizeAction with the values of the NumUpDown of width and height:
+            ICommand resizeImage = new Command<Size>(_editActions.ResizeAction, 
+                new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
             _execute(resizeImage);
         }
 
@@ -174,8 +108,9 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void HeightNumUpDown_ValueChanged(object sender, EventArgs e)
         {
-            // Call _resizeAction with the values of the NumUpDown of width and height:
-            ICommand resizeImage = new Command<Size>(_resizeAction, new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
+            // Call ResizeAction with the values of the NumUpDown of width and height:
+            ICommand resizeImage = new Command<Size>(_editActions.ResizeAction, 
+                new Size((int) WidthNumUpDown.Value, (int) HeightNumUpDown.Value));
             _execute(resizeImage);
         }
 
@@ -186,8 +121,8 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void RotationTrackBar_ValueChanged(object sender, EventArgs e)
         {
-            // Call _rotateAction passing in the current value of the track bar:
-            ICommand rotateImage = new Command<int>(_rotateAction, RotationTrackBar.Value);
+            // Call RotateAction passing in the current value of the track bar:
+            ICommand rotateImage = new Command<int>(_editActions.RotateAction, RotationTrackBar.Value);
             _execute(rotateImage);
         }
 
@@ -198,8 +133,8 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void FlipHorizontalButton_Click(object sender, EventArgs e)
         {
-            // Call _flipAction to flip horizontally (bool false):
-            ICommand flipImage = new Command<bool>(_flipAction, false);
+            // Call FlipAction to flip horizontally (bool false):
+            ICommand flipImage = new Command<bool>(_editActions.FlipAction, false);
             _execute(flipImage);
         }
 
@@ -210,8 +145,8 @@ namespace TheMediaEditor
         /// <param name="e"></param>
         private void FlipVerticalButton_Click(object sender, EventArgs e)
         {
-            // Call _flipAction to flip vertically (bool true):
-            ICommand flipImage = new Command<bool>(_flipAction, true);
+            // Call FlipAction to flip vertically (bool true):
+            ICommand flipImage = new Command<bool>(_editActions.FlipAction, true);
             _execute(flipImage);
         }
 
@@ -223,7 +158,7 @@ namespace TheMediaEditor
         private void OriginalButton_Click(object sender, EventArgs e)
         {
             // Remove any filters from the image:
-            _removeFilter();
+            _execute(new Command(_editActions.RemoveFilter));
         }
 
         /// <summary>
@@ -234,7 +169,7 @@ namespace TheMediaEditor
         private void BWButton_Click(object sender, EventArgs e)
         {
             // Apply a black and white filter to the image:
-            _blackWhiteFilter();
+            _execute(new Command(_editActions.BlackWhiteFilter));
         }
 
         /// <summary>
@@ -245,7 +180,7 @@ namespace TheMediaEditor
         private void ComicButton_Click(object sender, EventArgs e)
         {
             // Apply a comic filter to the image:
-            _comicFilter();
+            _execute(new Command(_editActions.ComicFilter));
         }
 
         /// <summary>
@@ -256,7 +191,7 @@ namespace TheMediaEditor
         private void LomoButton_Click(object sender, EventArgs e)
         {
             // Apply a lomography filter to the image:
-            _lomoFilter();
+            _execute(new Command(_editActions.ComicFilter));
         }
 
         /// <summary>
@@ -267,7 +202,7 @@ namespace TheMediaEditor
         private void SepiaButton_Click(object sender, EventArgs e)
         {
             // Apply a lomography filter to the image:
-            _sepiaFilter();
+            _execute(new Command(_editActions.SepiaFilter));
         }
 
         /// <summary>
@@ -278,7 +213,7 @@ namespace TheMediaEditor
         private void InvertButton_Click(object sender, EventArgs e)
         {
             // Apply an invert filter to the image:
-            _invertFilter();
+            _execute(new Command(_editActions.InvertFilter));
         }
 
         /// <summary>
@@ -289,7 +224,43 @@ namespace TheMediaEditor
         private void ResetButton_Click(object sender, EventArgs e)
         {
             // Reset all forms of editing made to the image:
-            _resetEdits();
+            _execute(new Command(_editActions.ResetEdits));
+        }
+
+        /// <summary>
+        /// Callback for the value of the ContrastTrackBar changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ContrastTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            // Apply contrast to the image depending on the value of the track bar
+            ICommand constractImage = new Command<int>(_editActions.ContrastAction, ContrastTrackBar.Value);
+            _execute(constractImage);
+        }
+
+        /// <summary>
+        /// Callback for the value of the BrightnessTrackBar changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BrightnessTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            // Apply brightness to the image depending on the value of the track bar
+            ICommand constractImage = new Command<int>(_editActions.BrightnessAction, BrightnessTrackBar.Value);
+            _execute(constractImage);
+        }
+
+        /// <summary>
+        /// Callback for the value of the SaturationTrackBar changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaturationTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            // Apply saturation to the image depending on the value of the track bar
+            ICommand saturationImage = new Command<int>(_editActions.SaturationAction, SaturationTrackBar.Value);
+            _execute(saturationImage);
         }
 
         /// <summary>
@@ -314,24 +285,6 @@ namespace TheMediaEditor
             if (MessageBox.Show("Are you sure you want to close the editor?", 
                 "Close window", MessageBoxButtons.YesNo) == DialogResult.No)
                 e.Cancel = true;
-        }
-
-        private void ContrastTrackBar_ValueChanged(object sender, EventArgs e)
-        {
-            ICommand constractImage = new Command<int>(_contrastAction, ContrastTrackBar.Value);
-            _execute(constractImage);
-        }
-
-        private void BrightnessTrackBar_ValueChanged(object sender, EventArgs e)
-        {
-            ICommand constractImage = new Command<int>(_brightnessAction, BrightnessTrackBar.Value);
-            _execute(constractImage);
-        }
-
-        private void SaturationTrackBar_ValueChanged(object sender, EventArgs e)
-        {
-            ICommand saturationImage = new Command<int>(_saturationAction, SaturationTrackBar.Value);
-            _execute(saturationImage);
         }
     }
 }
