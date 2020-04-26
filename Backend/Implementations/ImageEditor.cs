@@ -30,8 +30,7 @@ namespace Backend
                     // Create an ImageFactory to store the result of the processing
                     // the process() will be a Func delegate that receives and returns an
                     // ImageFactory, which will be use to call the specified processing method:
-                    var processResult = /*process.Aggregate(loadResult, (r, p) = p(r));*/process(loadResult);
-                    //var processResult = process.Aggregate(loadResult, (r, p) = p(r))
+                    var processResult = process(loadResult);
 
                     // Save the result into the stream:
                     processResult.Save(imageStream);

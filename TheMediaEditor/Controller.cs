@@ -57,7 +57,7 @@ namespace TheMediaEditor
         private void SetupDisplayView(object sender, EventArgs args)
         {
             // Convert the object into a panel:
-            var panel = (Panel) sender;
+            var panel = sender as Panel;
 
             // Declare an int to store the index selected (image) into:
             int indexSelected;
@@ -78,8 +78,10 @@ namespace TheMediaEditor
             var modelEdits = (imageModel as IModelEdits);
 
             // Initialise new DisplayView, passing in Commands:
-            displayView.Initialise(ExecuteCommand, modelEdits.Resize, modelEdits.Flip, modelEdits.Rotate, modelEdits.ResetEdits, imageModel.SaveAs);
-            //modelEdits.FilterBlackWhite, modelEdits.FilterComic, modelEdits.FilterLomograph, modelEdits.FilterSepia, modelEdits.FilterInvert, modelEdits.ResetEdits
+            displayView.Initialise(ExecuteCommand, modelEdits.Resize, modelEdits.Flip, modelEdits.Rotate, 
+                modelEdits.FilterOriginal, modelEdits.FilterBlackWhite, modelEdits.FilterComic, 
+                modelEdits.FilterLomograph, modelEdits.FilterSepia, modelEdits.FilterInvert,
+                modelEdits.ResetEdits, imageModel.SaveAs);
 
             // Show the DisplayView: 
             displayView.Show();

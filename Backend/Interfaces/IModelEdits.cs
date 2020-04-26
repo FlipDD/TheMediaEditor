@@ -28,6 +28,7 @@ namespace Backend
         /// <summary>
         /// Filter an image applying a specific MatrixFilter
         /// </summary>
+        void FilterOriginal();
         void FilterBlackWhite();
         void FilterComic();
         void FilterLomograph();
