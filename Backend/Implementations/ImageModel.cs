@@ -283,8 +283,10 @@ namespace Backend
             // Delete all functions added to the list:
             _currentEditFuncs.Clear();
 
-            // Reset _image and fire event:
+            // Fire event to update the image to be the original one:
             OnImageChanged(_image);
+            // Fire event to update the values of width and height
+            OnImageChanged(_image.Width, _image.Height);
         }
         #endregion
 

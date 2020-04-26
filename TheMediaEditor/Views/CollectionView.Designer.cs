@@ -55,7 +55,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(529, 467);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(529, 458);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // ThumbnailsFlowPanel
@@ -65,7 +65,7 @@
             this.ThumbnailsFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ThumbnailsFlowPanel.Location = new System.Drawing.Point(3, 3);
             this.ThumbnailsFlowPanel.Name = "ThumbnailsFlowPanel";
-            this.ThumbnailsFlowPanel.Size = new System.Drawing.Size(523, 393);
+            this.ThumbnailsFlowPanel.Size = new System.Drawing.Size(523, 386);
             this.ThumbnailsFlowPanel.TabIndex = 0;
             // 
             // separatingLine3
@@ -75,7 +75,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.separatingLine3.AutoSize = true;
             this.separatingLine3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.separatingLine3.Location = new System.Drawing.Point(30, 408);
+            this.separatingLine3.Location = new System.Drawing.Point(30, 401);
             this.separatingLine3.Margin = new System.Windows.Forms.Padding(30, 0, 30, 0);
             this.separatingLine3.Name = "separatingLine3";
             this.separatingLine3.Size = new System.Drawing.Size(469, 2);
@@ -91,13 +91,13 @@
             this.LoadButton.FlatAppearance.BorderSize = 0;
             this.LoadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LoadButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadButton.Location = new System.Drawing.Point(158, 422);
+            this.LoadButton.Location = new System.Drawing.Point(158, 415);
             this.LoadButton.Margin = new System.Windows.Forms.Padding(30, 3, 30, 3);
             this.LoadButton.Name = "LoadButton";
-            this.LoadButton.OnHoverBorderColor = System.Drawing.Color.DeepSkyBlue;
+            this.LoadButton.OnHoverBorderColor = System.Drawing.Color.Black;
             this.LoadButton.OnHoverButtonColor = System.Drawing.Color.White;
-            this.LoadButton.OnHoverTextColor = System.Drawing.Color.DeepSkyBlue;
-            this.LoadButton.Size = new System.Drawing.Size(212, 42);
+            this.LoadButton.OnHoverTextColor = System.Drawing.Color.Black;
+            this.LoadButton.Size = new System.Drawing.Size(212, 40);
             this.LoadButton.TabIndex = 9;
             this.LoadButton.Text = "Open...";
             this.LoadButton.TextColor = System.Drawing.Color.White;

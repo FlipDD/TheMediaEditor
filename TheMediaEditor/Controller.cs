@@ -16,9 +16,6 @@ namespace TheMediaEditor
         // DECLARE an ICollectionData to store the image collect, call it _collectionData:
         private ICollectionData _collectionData;
 
-        // DECLARE an EditMethods to store the image editing methods to use, call it _editMethods:
-        private EditActions _editMethods;
-
         /// <summary>
         /// Constructor of the Controller class
         /// </summary>
@@ -29,7 +26,7 @@ namespace TheMediaEditor
 
             // Instantiate a CollectionData to store all images in, store it as an ICollectionData and call it _collectionData:
             _collectionData = (_factoryLocator.Get<ICollectionData>() as IFactory<ICollectionData>).Create<CollectionData>();
-            
+
             // Inject _factoryLocator through to collectionData:
             _collectionData.InjectFactory(_factoryLocator);
 
@@ -53,10 +50,6 @@ namespace TheMediaEditor
             command.Execute();
         }
 
-        private void SetupEditingMethods()
-        {
-
-        }
 
         /// <summary>
         /// Setup the DisplayView to be added (the image editor window)
@@ -65,20 +58,11 @@ namespace TheMediaEditor
         /// <param name="args"></param>
         private void SetupDisplayView(object sender, EventArgs args)
         {
-            // Convert the object into a panel:
-            var panel = sender as Panel;
-
-            // Declare an int to store the index selected (image) into:
-            int indexSelected;
-            // Try to parse the tag of the button into an int and assign the value to indexSelected:
-            if (!Int32.TryParse(panel.Tag.ToString(), out indexSelected))
-                return;
-
             // Create a DisplayView Form:
             var displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
 
             // Set the IImageModel to be the one in the Dictionary with the Key = indexSelected:
-            var imageModel = _collectionData.GetImageModel(indexSelected);
+            var imageModel = _collectionData.GetImageModel(GetModelIndex(sender));
 
             // Subscribe to ImageEdited events:
             (imageModel as IEditImageEventPublisher).Subscribe(displayView.OnImageEdited);
@@ -86,15 +70,50 @@ namespace TheMediaEditor
             // Get the Interface IModelEdits containing the methods used to edit the images:
             var modelEdits = (imageModel as IModelEdits);
 
-            _editMethods = (_factoryLocator.Get<EditActions>() as IFactory<EditActions>).Create<EditActions>();
-            _editMethods.ResizeAction = modelEdits.Resize;
-            _editMethods.FlipAction = modelEdits.Flip;
-            
             // Initialise new DisplayView, passing in Commands:
-            displayView.Initialise(ExecuteCommand, _editMethods, imageModel.SaveAs);
+            displayView.Initialise(ExecuteCommand, GetEditActions(modelEdits), imageModel.SaveAs);
 
             // Show the DisplayView: 
             displayView.Show();
+        }
+
+        private EditActions GetEditActions(IModelEdits modelEdits)
+        {
+            // Create the EditActions class:
+            var editActions = (_factoryLocator.Get<EditActions>() as IFactory<EditActions>).Create<EditActions>();
+
+            // Set all the Actions wanted (not setting an action won't break the app anymore):
+            editActions.ResizeAction = modelEdits.Resize;
+            editActions.RotateAction = modelEdits.Rotate;
+            editActions.FlipAction = modelEdits.Flip;
+            editActions.ContrastAction = modelEdits.Contrast;
+            editActions.BrightnessAction = modelEdits.Brightness;
+            editActions.SaturationAction = modelEdits.Saturation;
+            editActions.RemoveFilter = modelEdits.FilterOriginal;
+            editActions.BlackWhiteFilter = modelEdits.FilterBlackWhite;
+            editActions.ComicFilter = modelEdits.FilterComic;
+            editActions.LomoFilter = modelEdits.FilterLomograph;
+            editActions.SepiaFilter = modelEdits.FilterSepia;
+            editActions.InvertFilter = modelEdits.FilterInvert;
+            editActions.ResetEdits = modelEdits.ResetEdits;
+
+            // Return the class with the properties set:
+            return editActions;
+        }
+
+        private int GetModelIndex(object o)
+        {
+            // Convert the object into a panel:
+            var panel = o as Panel;
+
+            // Declare an int to store the index selected (image) into:
+            int indexSelected;
+
+            // Try to parse the tag of the button into an int and assign the value to indexSelected:
+            Int32.TryParse(panel.Tag.ToString(), out indexSelected);
+
+            // Return the converted value
+            return indexSelected;
         }
      }
 }
