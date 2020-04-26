@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayView));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ToolsLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.SaveButton = new TheMediaEditor.CustomRoundButton();
             this.ToolsLabel = new System.Windows.Forms.Label();
             this.separatingLine2 = new System.Windows.Forms.Label();
             this.RotationTrackBar = new System.Windows.Forms.TrackBar();
@@ -53,6 +54,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.OriginalButton = new TheMediaEditor.CustomRoundButton();
+            this.BWButton = new TheMediaEditor.CustomRoundButton();
+            this.ComicButton = new TheMediaEditor.CustomRoundButton();
+            this.LomoButton = new TheMediaEditor.CustomRoundButton();
+            this.SepiaButton = new TheMediaEditor.CustomRoundButton();
+            this.InvertButton = new TheMediaEditor.CustomRoundButton();
+            this.ResetButton = new TheMediaEditor.CustomRoundButton();
             this.ConstrastLabel = new System.Windows.Forms.Label();
             this.ContrastTrackBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,14 +69,6 @@
             this.SaturationTrackBar = new System.Windows.Forms.TrackBar();
             this.SaturationLabel = new System.Windows.Forms.Label();
             this.PictureBox = new System.Windows.Forms.PictureBox();
-            this.SaveButton = new TheMediaEditor.CustomRoundButton();
-            this.OriginalButton = new TheMediaEditor.CustomRoundButton();
-            this.BWButton = new TheMediaEditor.CustomRoundButton();
-            this.ComicButton = new TheMediaEditor.CustomRoundButton();
-            this.LomoButton = new TheMediaEditor.CustomRoundButton();
-            this.SepiaButton = new TheMediaEditor.CustomRoundButton();
-            this.InvertButton = new TheMediaEditor.CustomRoundButton();
-            this.ResetButton = new TheMediaEditor.CustomRoundButton();
             this.tableLayoutPanel.SuspendLayout();
             this.ToolsLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RotationTrackBar)).BeginInit();
@@ -150,15 +150,15 @@
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.26269F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.295295F));
-            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.09874F));
+            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.90625F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
-            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.09874F));
+            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.21875F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.557984F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.370213F));
-            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.13949F));
+            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.5625F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
-            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.21875F));
+            this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.6875F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.59375F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.979572F));
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.979572F));
@@ -170,6 +170,31 @@
             this.ToolsLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.365915F));
             this.ToolsLayoutPanel.Size = new System.Drawing.Size(191, 652);
             this.ToolsLayoutPanel.TabIndex = 7;
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
+            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
+            this.SaveButton.FlatAppearance.BorderSize = 0;
+            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SaveButton.Location = new System.Drawing.Point(30, 605);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(30, 8, 30, 8);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
+            this.SaveButton.OnHoverTextColor = System.Drawing.Color.Black;
+            this.SaveButton.Size = new System.Drawing.Size(131, 39);
+            this.SaveButton.TabIndex = 10;
+            this.SaveButton.Text = "Save as...";
+            this.SaveButton.TextColor = System.Drawing.Color.White;
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // ToolsLabel
             // 
@@ -240,7 +265,7 @@
             this.separatingLine1.BackColor = System.Drawing.Color.Gray;
             this.separatingLine1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.separatingLine1.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.separatingLine1.Location = new System.Drawing.Point(32, 201);
+            this.separatingLine1.Location = new System.Drawing.Point(32, 200);
             this.separatingLine1.Margin = new System.Windows.Forms.Padding(32, 0, 32, 0);
             this.separatingLine1.Name = "separatingLine1";
             this.separatingLine1.Size = new System.Drawing.Size(127, 2);
@@ -525,8 +550,177 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(185, 71);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(185, 68);
             this.tableLayoutPanel5.TabIndex = 31;
+            // 
+            // OriginalButton
+            // 
+            this.OriginalButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OriginalButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.OriginalButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.OriginalButton.BorderColor = System.Drawing.Color.Gray;
+            this.OriginalButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.OriginalButton.FlatAppearance.BorderSize = 0;
+            this.OriginalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OriginalButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.OriginalButton.Location = new System.Drawing.Point(3, 3);
+            this.OriginalButton.Name = "OriginalButton";
+            this.OriginalButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.OriginalButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.OriginalButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.OriginalButton.Size = new System.Drawing.Size(55, 28);
+            this.OriginalButton.TabIndex = 32;
+            this.OriginalButton.Text = "Original";
+            this.OriginalButton.TextColor = System.Drawing.Color.White;
+            this.OriginalButton.UseVisualStyleBackColor = false;
+            this.OriginalButton.Click += new System.EventHandler(this.OriginalButton_Click);
+            // 
+            // BWButton
+            // 
+            this.BWButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BWButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BWButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BWButton.BorderColor = System.Drawing.Color.Gray;
+            this.BWButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.BWButton.FlatAppearance.BorderSize = 0;
+            this.BWButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BWButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.BWButton.Location = new System.Drawing.Point(64, 3);
+            this.BWButton.Name = "BWButton";
+            this.BWButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.BWButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.BWButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.BWButton.Size = new System.Drawing.Size(55, 28);
+            this.BWButton.TabIndex = 33;
+            this.BWButton.Text = "BW";
+            this.BWButton.TextColor = System.Drawing.Color.White;
+            this.BWButton.UseVisualStyleBackColor = false;
+            this.BWButton.Click += new System.EventHandler(this.BWButton_Click);
+            // 
+            // ComicButton
+            // 
+            this.ComicButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComicButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ComicButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ComicButton.BorderColor = System.Drawing.Color.Gray;
+            this.ComicButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.ComicButton.FlatAppearance.BorderSize = 0;
+            this.ComicButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ComicButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.ComicButton.Location = new System.Drawing.Point(125, 3);
+            this.ComicButton.Name = "ComicButton";
+            this.ComicButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.ComicButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.ComicButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.ComicButton.Size = new System.Drawing.Size(57, 28);
+            this.ComicButton.TabIndex = 34;
+            this.ComicButton.Text = "Comic";
+            this.ComicButton.TextColor = System.Drawing.Color.White;
+            this.ComicButton.UseVisualStyleBackColor = false;
+            this.ComicButton.Click += new System.EventHandler(this.ComicButton_Click);
+            // 
+            // LomoButton
+            // 
+            this.LomoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LomoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.LomoButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.LomoButton.BorderColor = System.Drawing.Color.Gray;
+            this.LomoButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.LomoButton.FlatAppearance.BorderSize = 0;
+            this.LomoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LomoButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.LomoButton.Location = new System.Drawing.Point(3, 37);
+            this.LomoButton.Name = "LomoButton";
+            this.LomoButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.LomoButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.LomoButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.LomoButton.Size = new System.Drawing.Size(55, 28);
+            this.LomoButton.TabIndex = 35;
+            this.LomoButton.Text = "Lomo";
+            this.LomoButton.TextColor = System.Drawing.Color.White;
+            this.LomoButton.UseVisualStyleBackColor = false;
+            this.LomoButton.Click += new System.EventHandler(this.LomoButton_Click);
+            // 
+            // SepiaButton
+            // 
+            this.SepiaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SepiaButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SepiaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.SepiaButton.BorderColor = System.Drawing.Color.Gray;
+            this.SepiaButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.SepiaButton.FlatAppearance.BorderSize = 0;
+            this.SepiaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SepiaButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.SepiaButton.Location = new System.Drawing.Point(64, 37);
+            this.SepiaButton.Name = "SepiaButton";
+            this.SepiaButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.SepiaButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.SepiaButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.SepiaButton.Size = new System.Drawing.Size(55, 28);
+            this.SepiaButton.TabIndex = 36;
+            this.SepiaButton.Text = "Sepia";
+            this.SepiaButton.TextColor = System.Drawing.Color.White;
+            this.SepiaButton.UseVisualStyleBackColor = false;
+            this.SepiaButton.Click += new System.EventHandler(this.SepiaButton_Click);
+            // 
+            // InvertButton
+            // 
+            this.InvertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.InvertButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.InvertButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.InvertButton.BorderColor = System.Drawing.Color.Gray;
+            this.InvertButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.InvertButton.FlatAppearance.BorderSize = 0;
+            this.InvertButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InvertButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
+            this.InvertButton.Location = new System.Drawing.Point(125, 37);
+            this.InvertButton.Name = "InvertButton";
+            this.InvertButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.InvertButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
+            this.InvertButton.OnHoverTextColor = System.Drawing.Color.White;
+            this.InvertButton.Size = new System.Drawing.Size(57, 28);
+            this.InvertButton.TabIndex = 37;
+            this.InvertButton.Text = "Invert";
+            this.InvertButton.TextColor = System.Drawing.Color.White;
+            this.InvertButton.UseVisualStyleBackColor = false;
+            this.InvertButton.Click += new System.EventHandler(this.InvertButton_Click);
+            // 
+            // ResetButton
+            // 
+            this.ResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ResetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ResetButton.BorderColor = System.Drawing.Color.DimGray;
+            this.ResetButton.ButtonColor = System.Drawing.Color.Black;
+            this.ResetButton.FlatAppearance.BorderSize = 0;
+            this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ResetButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ResetButton.Location = new System.Drawing.Point(22, 538);
+            this.ResetButton.Margin = new System.Windows.Forms.Padding(22, 8, 22, 8);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.OnHoverBorderColor = System.Drawing.Color.Black;
+            this.ResetButton.OnHoverButtonColor = System.Drawing.Color.White;
+            this.ResetButton.OnHoverTextColor = System.Drawing.Color.Black;
+            this.ResetButton.Size = new System.Drawing.Size(147, 41);
+            this.ResetButton.TabIndex = 32;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.TextColor = System.Drawing.Color.White;
+            this.ResetButton.UseVisualStyleBackColor = false;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // ConstrastLabel
             // 
@@ -561,7 +755,7 @@
             this.label3.BackColor = System.Drawing.Color.Gray;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label3.Location = new System.Drawing.Point(12, 378);
+            this.label3.Location = new System.Drawing.Point(12, 375);
             this.label3.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(167, 2);
@@ -627,200 +821,6 @@
             this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.PictureBox.TabIndex = 8;
             this.PictureBox.TabStop = false;
-            // 
-            // SaveButton
-            // 
-            this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SaveButton.BorderColor = System.Drawing.Color.DimGray;
-            this.SaveButton.ButtonColor = System.Drawing.Color.Black;
-            this.SaveButton.FlatAppearance.BorderSize = 0;
-            this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SaveButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SaveButton.Location = new System.Drawing.Point(30, 605);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(30, 8, 30, 8);
-            this.SaveButton.Name = "SaveButton";
-            this.SaveButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.SaveButton.OnHoverButtonColor = System.Drawing.Color.White;
-            this.SaveButton.OnHoverTextColor = System.Drawing.Color.Black;
-            this.SaveButton.Size = new System.Drawing.Size(131, 39);
-            this.SaveButton.TabIndex = 10;
-            this.SaveButton.Text = "Save as...";
-            this.SaveButton.TextColor = System.Drawing.Color.White;
-            this.SaveButton.UseVisualStyleBackColor = false;
-            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
-            // 
-            // OriginalButton
-            // 
-            this.OriginalButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.OriginalButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.OriginalButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.OriginalButton.BorderColor = System.Drawing.Color.Gray;
-            this.OriginalButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.OriginalButton.FlatAppearance.BorderSize = 0;
-            this.OriginalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OriginalButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.OriginalButton.Location = new System.Drawing.Point(3, 3);
-            this.OriginalButton.Name = "OriginalButton";
-            this.OriginalButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.OriginalButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.OriginalButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.OriginalButton.Size = new System.Drawing.Size(55, 29);
-            this.OriginalButton.TabIndex = 32;
-            this.OriginalButton.Text = "Original";
-            this.OriginalButton.TextColor = System.Drawing.Color.White;
-            this.OriginalButton.UseVisualStyleBackColor = false;
-            this.OriginalButton.Click += new System.EventHandler(this.OriginalButton_Click);
-            // 
-            // BWButton
-            // 
-            this.BWButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BWButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.BWButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BWButton.BorderColor = System.Drawing.Color.Gray;
-            this.BWButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.BWButton.FlatAppearance.BorderSize = 0;
-            this.BWButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BWButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.BWButton.Location = new System.Drawing.Point(64, 3);
-            this.BWButton.Name = "BWButton";
-            this.BWButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.BWButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.BWButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.BWButton.Size = new System.Drawing.Size(55, 29);
-            this.BWButton.TabIndex = 33;
-            this.BWButton.Text = "BW";
-            this.BWButton.TextColor = System.Drawing.Color.White;
-            this.BWButton.UseVisualStyleBackColor = false;
-            this.BWButton.Click += new System.EventHandler(this.BWButton_Click);
-            // 
-            // ComicButton
-            // 
-            this.ComicButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComicButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ComicButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ComicButton.BorderColor = System.Drawing.Color.Gray;
-            this.ComicButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.ComicButton.FlatAppearance.BorderSize = 0;
-            this.ComicButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ComicButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.ComicButton.Location = new System.Drawing.Point(125, 3);
-            this.ComicButton.Name = "ComicButton";
-            this.ComicButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.ComicButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.ComicButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.ComicButton.Size = new System.Drawing.Size(57, 29);
-            this.ComicButton.TabIndex = 34;
-            this.ComicButton.Text = "Comic";
-            this.ComicButton.TextColor = System.Drawing.Color.White;
-            this.ComicButton.UseVisualStyleBackColor = false;
-            this.ComicButton.Click += new System.EventHandler(this.ComicButton_Click);
-            // 
-            // LomoButton
-            // 
-            this.LomoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LomoButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.LomoButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.LomoButton.BorderColor = System.Drawing.Color.Gray;
-            this.LomoButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.LomoButton.FlatAppearance.BorderSize = 0;
-            this.LomoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.LomoButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.LomoButton.Location = new System.Drawing.Point(3, 38);
-            this.LomoButton.Name = "LomoButton";
-            this.LomoButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.LomoButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.LomoButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.LomoButton.Size = new System.Drawing.Size(55, 30);
-            this.LomoButton.TabIndex = 35;
-            this.LomoButton.Text = "Lomo";
-            this.LomoButton.TextColor = System.Drawing.Color.White;
-            this.LomoButton.UseVisualStyleBackColor = false;
-            this.LomoButton.Click += new System.EventHandler(this.LomoButton_Click);
-            // 
-            // SepiaButton
-            // 
-            this.SepiaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.SepiaButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SepiaButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.SepiaButton.BorderColor = System.Drawing.Color.Gray;
-            this.SepiaButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.SepiaButton.FlatAppearance.BorderSize = 0;
-            this.SepiaButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SepiaButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.SepiaButton.Location = new System.Drawing.Point(64, 38);
-            this.SepiaButton.Name = "SepiaButton";
-            this.SepiaButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.SepiaButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.SepiaButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.SepiaButton.Size = new System.Drawing.Size(55, 30);
-            this.SepiaButton.TabIndex = 36;
-            this.SepiaButton.Text = "Sepia";
-            this.SepiaButton.TextColor = System.Drawing.Color.White;
-            this.SepiaButton.UseVisualStyleBackColor = false;
-            this.SepiaButton.Click += new System.EventHandler(this.SepiaButton_Click);
-            // 
-            // InvertButton
-            // 
-            this.InvertButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InvertButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.InvertButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.InvertButton.BorderColor = System.Drawing.Color.Gray;
-            this.InvertButton.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.InvertButton.FlatAppearance.BorderSize = 0;
-            this.InvertButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InvertButton.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.InvertButton.Location = new System.Drawing.Point(125, 38);
-            this.InvertButton.Name = "InvertButton";
-            this.InvertButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.InvertButton.OnHoverButtonColor = System.Drawing.Color.DimGray;
-            this.InvertButton.OnHoverTextColor = System.Drawing.Color.White;
-            this.InvertButton.Size = new System.Drawing.Size(57, 30);
-            this.InvertButton.TabIndex = 37;
-            this.InvertButton.Text = "Invert";
-            this.InvertButton.TextColor = System.Drawing.Color.White;
-            this.InvertButton.UseVisualStyleBackColor = false;
-            this.InvertButton.Click += new System.EventHandler(this.InvertButton_Click);
-            // 
-            // ResetButton
-            // 
-            this.ResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ResetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ResetButton.BorderColor = System.Drawing.Color.DimGray;
-            this.ResetButton.ButtonColor = System.Drawing.Color.Black;
-            this.ResetButton.FlatAppearance.BorderSize = 0;
-            this.ResetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ResetButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetButton.Location = new System.Drawing.Point(22, 538);
-            this.ResetButton.Margin = new System.Windows.Forms.Padding(22, 8, 22, 8);
-            this.ResetButton.Name = "ResetButton";
-            this.ResetButton.OnHoverBorderColor = System.Drawing.Color.Black;
-            this.ResetButton.OnHoverButtonColor = System.Drawing.Color.White;
-            this.ResetButton.OnHoverTextColor = System.Drawing.Color.Black;
-            this.ResetButton.Size = new System.Drawing.Size(147, 41);
-            this.ResetButton.TabIndex = 32;
-            this.ResetButton.Text = "Reset";
-            this.ResetButton.TextColor = System.Drawing.Color.White;
-            this.ResetButton.UseVisualStyleBackColor = false;
-            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // DisplayView
             // 

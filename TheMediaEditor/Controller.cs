@@ -13,8 +13,8 @@ namespace TheMediaEditor
         // DECLARE an IServiceLocator to refer to the factory locator, call it _factoryLocator:
         private IServiceLocator _factoryLocator;
 
-        // DECLARE an ICollectionData to store the image collect, call it _collectionData:
-        private ICollectionData _collectionData;
+        // DECLARE an ICollectionModel to store the image collect, call it _CollectionModel:
+        private ICollectionModel _CollectionModel;
 
         /// <summary>
         /// Constructor of the Controller class
@@ -24,17 +24,17 @@ namespace TheMediaEditor
             // Instantiate _factoryLocator:
             _factoryLocator = new FactoryLocator();
 
-            // Instantiate a CollectionData to store all images in, store it as an ICollectionData and call it _collectionData:
-            _collectionData = (_factoryLocator.Get<ICollectionData>() as IFactory<ICollectionData>).Create<CollectionData>();
+            // Instantiate a CollectionModel to store all images in, store it as an ICollectionModel and call it _CollectionModel:
+            _CollectionModel = (_factoryLocator.Get<ICollectionModel>() as IFactory<ICollectionModel>).Create<CollectionModel>();
 
-            // Inject _factoryLocator through to collectionData:
-            _collectionData.InjectFactory(_factoryLocator);
+            // Inject _factoryLocator through to CollectionModel:
+            _CollectionModel.InjectFactory(_factoryLocator);
 
             // Declare a create a temporary CollectionView and pass in the strategy delegate and the action:
-            var collectionView = new Views.CollectionView(_collectionData.BrowseImages, SetupDisplayView);
+            var collectionView = new Views.CollectionView(_CollectionModel.BrowseImages, SetupDisplayView);
 
             // Subscribe to ImageAdded events:
-            (_collectionData as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
+            (_CollectionModel as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
 
             // Fire-up UI by instantiating CollectionView:
             Application.Run(collectionView);
@@ -50,7 +50,6 @@ namespace TheMediaEditor
             command.Execute();
         }
 
-
         /// <summary>
         /// Setup the DisplayView to be added (the image editor window)
         /// </summary>
@@ -62,7 +61,7 @@ namespace TheMediaEditor
             var displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
 
             // Set the IImageModel to be the one in the Dictionary with the Key = indexSelected:
-            var imageModel = _collectionData.GetImageModel(GetModelIndex(sender));
+            var imageModel = _CollectionModel.GetImageModel(GetModelIndex(sender));
 
             // Subscribe to ImageEdited events:
             (imageModel as IEditImageEventPublisher).Subscribe(displayView.OnImageEdited);
@@ -112,7 +111,7 @@ namespace TheMediaEditor
             // Try to parse the tag of the button into an int and assign the value to indexSelected:
             Int32.TryParse(panel.Tag.ToString(), out indexSelected);
 
-            // Return the converted value
+            // Return the converted value:
             return indexSelected;
         }
      }

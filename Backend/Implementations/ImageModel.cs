@@ -15,7 +15,7 @@ namespace Backend
         // DECLARE an EventHandler of ImageModelEventArgs to handle ImageModel events, call it _imageChangedEvent:
         private event EventHandler<ImageModelEventArgs> _imageChangedEvent;
 
-        // DECLARE an IImageEditor to handle editing of images, call it _imageEditor: 
+        // DECLARE an IImageEditor to handle editing of images, call it _imageEditor:  
         private IImageEditor _imageEditor;
 
         // DECLARE an IImageSaver to handle the saving of images to a file, call it _imageSaver:
@@ -44,6 +44,9 @@ namespace Backend
         List<Func<Image, Image>> _currentEditFuncs;
 
         private bool _currentFlip;
+
+        private bool _flippedVertically;
+        private bool _flippedHorizontally;
 
 
         #region Implementation of IImageModel
@@ -109,11 +112,11 @@ namespace Backend
             // Set the current size to be the size passed in:
             _currentSize = size;
 
-            // SCALE _image and fire event:
+            // Try to add the Resize Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Resize(_currentSize)));
 
-            // Fire the event that updates the width and height values in the UI:
-            OnImageChanged(size.Width, size.Height);
+            // Fire the event that updates the size values on the UI:
+            OnScaleChanged(size.Width, size.Height);
         }
 
         /// <summary>
@@ -125,50 +128,11 @@ namespace Backend
             // Set the current degrees to be the degrees passed in:
             _currentDegrees = degrees;
 
-            // Rotate _image and fire event:
+            // Try to add the Rotate Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Rotate(_currentDegrees)));
 
-            // Fire the event that updates and rotation values in the UI:
-            OnImageChanged(_currentDegrees);
-        }
-
-        /// <summary>
-        /// Add a new function to the _currentEditFuncs list, which runs all of our editing methods
-        /// </summary>
-        /// <param name="newEditFunc">The type of processing to apply to the image</param>
-        /// <param name="isFilter">If the function we're adding is .Filter (troublesome)</param>
-        void AddNewFunc(Func<Image, Image> newEditFunc, bool isFlip = false, bool isFilter = false)
-        {
-            // Check if our method was already added
-            bool containsAction = _currentEditFuncs.Contains(newEditFunc);
-
-            // Add if we still haven't added our image editing method
-            if (!containsAction)
-            {
-                // Needed since filter overrides resize, rotate and flip
-                // So we check if we're adding a filter and put it in the first index of the list
-                if (isFilter)
-                {
-                    // Set the has filter to true - so we know a filter is being applied
-                    _hasFilter = true;
-                    // Insert the filter method as the first member of the list
-                    _currentEditFuncs.Insert(0, newEditFunc);
-                }
-                else
-                {
-                    // Add the new editing function to the list
-                    _currentEditFuncs.Add(newEditFunc);
-                }
-            }
-            else
-            {
-                if (isFlip)
-                {
-                    _currentEditFuncs.Remove(newEditFunc);
-                }
-            }
-
-            EditImage();
+            // Fire the event that updates the degrees value on the UI:
+            OnDegreesChanged(_currentDegrees);
         }
 
         /// <summary>
@@ -177,8 +141,10 @@ namespace Backend
         /// <param name="flipVertically">If the image should be flipped vertically or horizontally</param>
         public void Flip(bool flipVertically)
         {
+            // Set the current flip value:
             _currentFlip = flipVertically;
-            // FLIP _image and fire event:
+
+            // Try to add the Flip Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Flip(_currentFlip)), true, false);
         }
 
@@ -188,8 +154,10 @@ namespace Backend
         /// <param name="percentage">The percentage of contrast to apply</param>
         public void Contrast(int percentage)
         {
+            // Set the current contrast value:
             _currentContrast = percentage;
 
+            // Try to add the Contrast Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Contrast(_currentContrast)));
         }
 
@@ -199,8 +167,10 @@ namespace Backend
         /// <param name="percentage">The percentage of brightness to apply</param>
         public void Brightness(int percentage)
         {
+            // Set the current brightness value:
             _currentBrightness = percentage;
 
+            // Try to add the Brightness Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Brightness(_currentBrightness)));
         }
 
@@ -210,17 +180,40 @@ namespace Backend
         /// <param name="percentage">The percentage of saturation to apply</param>
         public void Saturation(int percentage)
         {
+            // Set the current saturation value:
             _currentSaturation = percentage;
 
+            // Try to add the Saturation Func to the _currentEdits list:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Saturation(_currentSaturation)));
         }
 
+        /// <summary>
+        /// Filter an image applying a black and white
+        /// </summary>
+        public void ApplyFilter(IMatrixFilter filter)
+        {
+            // Set the filter value
+            _currentFilter = filter;
+
+            // Try to add the Filter Func to the _currentEdits list:
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Filter(_currentFilter)), false, true);
+        }
+
+        /// <summary>
+        /// Remove any filter the image might have
+        /// </summary>
         public void FilterOriginal()
         {
+            // If the image has a filter applied
             if (_hasFilter)
             {
+                // Set the _hasFilter to false:
                 _hasFilter = false;
+
+                // Remove the filter method from the list (which is always the first)
                 _currentEditFuncs.RemoveAt(0);
+
+                // Edit the image:
                 EditImage();
             }
         }
@@ -266,13 +259,44 @@ namespace Backend
         }
 
         /// <summary>
-        /// Filter an image applying a black and white
+        /// Add a new function to the _currentEditFuncs list, which runs all of our editing methods
         /// </summary>
-        public void ApplyFilter(IMatrixFilter filter)
+        /// <param name="newEditFunc">The type of processing to apply to the image</param>
+        /// <param name="isFlip">If the function we're adding is .Flip</param>
+        /// <param name="isFilter">If the function we're adding is .Filter (troublesome)</param>
+        void AddNewFunc(Func<Image, Image> newEditFunc, bool isFlip = false, bool isFilter = false)
         {
-            // Set the _currentFilter to be the filter 
-            _currentFilter = filter;
-            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Filter(_currentFilter)), false, true);
+            // Check if our method was already added
+            bool containsAction = _currentEditFuncs.Contains(newEditFunc);
+
+            // Add if we still haven't added our image editing method
+            if (!containsAction)
+            {
+                // Needed since filter overrides resize, rotate and flip
+                // So we check if we're adding a filter and put it in the first index of the list
+                if (isFilter)
+                {
+                    // Set the has filter to true - so we know a filter is being applied
+                    _hasFilter = true;
+                    // Insert the filter method as the first member of the list
+                    _currentEditFuncs.Insert(0, newEditFunc);
+                }
+                else
+                {
+                    // Add the new editing function to the list
+                    _currentEditFuncs.Add(newEditFunc);
+                }
+            }
+            else
+            {
+                // If the newEditFunc is the .Flip 
+                if (isFlip)
+                    // Remove it from the list
+                    _currentEditFuncs.Remove(newEditFunc);
+            }
+
+            // Perform the image editing:
+            EditImage();
         }
 
         /// <summary>
@@ -286,7 +310,7 @@ namespace Backend
             // Fire event to update the image to be the original one:
             OnImageChanged(_image);
             // Fire event to update the values of width and height
-            OnImageChanged(_image.Width, _image.Height);
+            OnScaleChanged(_image.Width, _image.Height);
         }
         #endregion
 
@@ -297,16 +321,8 @@ namespace Backend
         /// <param name="listener">reference to the listener method</param>
         public void Subscribe(EventHandler<ImageModelEventArgs> listener)
         {
+            // Subscribe to the event:
             _imageChangedEvent += listener;
-        }
-
-        /// <summary>
-        /// Unsubscribe a listener to image events
-        /// </summary>
-        /// <param name="listener">reference to the listener method</param>
-        public void Unsubscribe(EventHandler<ImageModelEventArgs> listener)
-        {
-            _imageChangedEvent -= listener;
         }
         #endregion
 
@@ -319,17 +335,16 @@ namespace Backend
         protected virtual void OnImageChanged(Image image)
         {
             // Only call it if there are any subscribers:
-            if (_imageChangedEvent != null)
-                _imageChangedEvent(this, new ImageModelEventArgs(image));
+            _imageChangedEvent?.Invoke(this, new ImageModelEventArgs(image));
         }
 
-        protected virtual void OnImageChanged(int width, int height)
+        protected virtual void OnScaleChanged(int width, int height)
         {
             // Only call it if there are any subscribers:
             _imageChangedEvent?.Invoke(this, new ImageModelEventArgs(width, height));
         }
 
-        protected virtual void OnImageChanged(int degrees)
+        protected virtual void OnDegreesChanged(int degrees)
         {
             // Only call it if there are any subscribers:
             _imageChangedEvent?.Invoke(this, new ImageModelEventArgs(degrees));

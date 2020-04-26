@@ -7,9 +7,9 @@ using System.Windows.Forms;
 namespace Backend
 {
     /// <summary>
-    /// CollectionData class. Contains logic for the user to be able to browse new images and add controls
+    /// CollectionModel class. Contains logic for the user to be able to browse new images and add controls
     /// </summary>
-    public class CollectionData : ICollectionData, IAddImageEventPublisher
+    public class CollectionModel : ICollectionModel, IAddImageEventPublisher
     {
         // DECLARE an event for storing images added event handlers, call it _controlAddedEvent:
         private event EventHandler<ImageAddedEventArgs> _controlAddedEvent;
@@ -20,7 +20,7 @@ namespace Backend
         // DECLARE a Dictionary<int, IImageModel> to store all image data and logic, call it _currentModels:
         private IDictionary<int, IImageModel> _currentModels;
 
-        #region IMPLEMENTATION of ICollectionData
+        #region IMPLEMENTATION of ICollectionModel
         /// <summary>
         /// Inject a reference to the factory locator service
         /// </summary>
@@ -57,16 +57,16 @@ namespace Backend
                 // Create an Drawing.Image from the path:
                 var imageFound = Bitmap.FromFile(Path.GetFullPath(path));
 
-                // Add a control (panel) to the flow panel using the image as the background:
-                AddControl(imageFound);
+                // Add a image model and the associated flow panel using the image as the background:
+                AddImageModel(imageFound);
             }
         }
 
         /// <summary>
-        /// Add a panel control to the flow panel 
+        /// Add a new image model  
         /// </summary>
-        /// <param name="imageToAdd">The image to set as the panel's background image</param>
-        public void AddControl(Image imageToAdd)
+        /// <param name="imageToAdd">The image to send as a parameter to the model</param>
+        public void AddImageModel(Image imageToAdd)
         {
             // Create an ImageModel:
             var imageModel = (_factories.Get<IImageModel>() as IFactory<IImageModel>).Create<ImageModel>();
@@ -81,24 +81,38 @@ namespace Backend
             // Initialise the ImageModel, passing in the ImageEditor and the ImageSaver:
             imageModel.Initialise(imageToAdd, imageEditor, (_factories.Get<IImageSaver>() as IFactory<IImageSaver>).Create<ImageSaver>());
 
+            // Initialise a new panel to send to the View:
+            var panel = SetupNewPanel(imageEditor.ProcessImage(imageToAdd, im => im.Resize(new Size(150, 150))), count);
+
+            // Call the event for when a control is added, passing in the newly created panel:
+            OnControlAddedEvent(panel);
+        }
+
+        /// <summary>
+        /// Add a panel control to the flow panel 
+        /// </summary>
+        /// <param name="panelImage">The image to add as the panels' background image</param>
+        /// <param name="tag">The tag to give to the panel</param>
+        /// <returns>The created panel</returns>
+        public Panel SetupNewPanel(Image panelImage, int tag)
+        {
             // Create a new panel:
             var panel = new Panel();
-            // Create a new Size:
-            var size = new Size(150, 150);
             // Set the panel tag to be the count of the dictionary (before adding the model, so it starts at 0):
-            panel.Tag = count;
-            // Set the panel size to be the previously created Size: 
-            panel.Size = size;
+            panel.Tag = tag;
+            // Set the panel size to be the size of the image: 
+            panel.Size = panelImage.Size;
             // Set the panel BackgroundImage to be the image passed in as a parameter, resizing it to fix the size of the panel:
-            panel.BackgroundImage = imageEditor.ProcessImage(imageToAdd, im => im.Resize(size));
+            panel.BackgroundImage = panelImage;
             // Set the panel BackgroundImageLayout to be Center, so that the image is centered in the panel:
             panel.BackgroundImageLayout = ImageLayout.Center;
             // Set the panel BackColor to be BlanchedAlmond:
             panel.BackColor = Color.BlanchedAlmond;
 
-            // Call the event for when a control is added, passing in the newly created panel:
-            OnControlAddedEvent(panel);
+            // Return the created panel
+            return panel;
         }
+
         #endregion
 
         #region Implementation of IAddImageEventPublisher

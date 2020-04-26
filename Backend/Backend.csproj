@@ -46,11 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementations\CollectionData.cs" />
+    <Compile Include="Implementations\CollectionModel.cs" />
+    <Compile Include="Implementations\ModelEdits.cs" />
     <Compile Include="Interfaces\IModelEdits.cs" />
     <Compile Include="Interfaces\IAddImageEventListener.cs" />
     <Compile Include="Interfaces\IAddImageEventPublisher.cs" />
-    <Compile Include="Interfaces\ICollectionData.cs" />
+    <Compile Include="Interfaces\ICollectionModel.cs" />
     <Compile Include="Interfaces\IEditImageEventListener.cs" />
     <Compile Include="Interfaces\IEditImageEventPublisher.cs" />
     <Compile Include="Interfaces\IImageSaver.cs" />
