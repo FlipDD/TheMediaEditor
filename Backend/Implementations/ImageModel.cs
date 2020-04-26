@@ -1,7 +1,9 @@
 ﻿using ImageProcessor.Imaging.Filters.Photo;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 namespace Backend
 {
@@ -25,6 +27,10 @@ namespace Backend
         // DECLARE a Size that will hold the current size of the image, call it _currentSize:
         private Size _currentSize;
 
+        private int _currentContrast;
+        private int _currentBrightness;
+        private int _currentSaturation;
+
         // DECLARE an int that will hold the amount in degrees the image was rotated, call it _currentDegrees:
         private int _currentDegrees;
 
@@ -36,6 +42,8 @@ namespace Backend
 
         // DECLARE a List of Func<Image, Image> that will hold the current edit methods used, call it _currentEditFuncs:
         List<Func<Image, Image>> _currentEditFuncs;
+
+        private bool _currentFlip;
 
 
         #region Implementation of IImageModel
@@ -61,29 +69,35 @@ namespace Backend
         /// </summary>
         public void SaveAs()
         {
-            // Apply all the edits before saving the image using the stored values:
-            _imageEditor.ProcessImage(_image, factory => factory.Resize(_currentSize).Rotate(_currentDegrees));
-
-            // Save the image:
-            _imageSaver.SaveImage(_image);
+            // Save the image passing in the method that applies the edits and returns the image:
+            _imageSaver.SaveImage(ApplyEdits());
         }
         #endregion
 
         #region Implentation of IModelEdits
         /// <summary>
-        /// Runs all the image editing methods in the _currentEditFuncs list
+        /// Fires the event that updates the image on the view
         /// </summary>
         void EditImage()
+        {
+            // Fire the event that updates the image passing the method that applies the edits:
+            OnImageChanged(ApplyEdits());
+        }
+
+        /// <summary>
+        /// Applies all the edits inside the list of editing methods
+        /// </summary>
+        /// <returns></returns>
+        Image ApplyEdits()
         {
             // Declare the image to be edited (using the original):
             Image newImage = _image;
 
-            //newImage = _imageEditor.ProcessImage(newImage, factory => factory.Filter(MatrixFilters.BlackWhite));
             // Loop through the current edit functions and apply them to the newImage:
             _currentEditFuncs.ForEach(action => newImage = action.Invoke(newImage));
 
-            // Fire the event passing in the now edited image:
-            OnImageChanged(newImage);
+            // Return the now edited image:
+            return newImage;
         }
 
         /// <summary>
@@ -98,7 +112,7 @@ namespace Backend
             // SCALE _image and fire event:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Resize(_currentSize)));
 
-            EditImage();
+            // Fire the event that updates the width and height values in the UI:
             OnImageChanged(size.Width, size.Height);
         }
 
@@ -114,7 +128,8 @@ namespace Backend
             // Rotate _image and fire event:
             AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Rotate(_currentDegrees)));
 
-            EditImage();
+            // Fire the event that updates and rotation values in the UI:
+            OnImageChanged(_currentDegrees);
         }
 
         /// <summary>
@@ -122,7 +137,7 @@ namespace Backend
         /// </summary>
         /// <param name="newEditFunc">The type of processing to apply to the image</param>
         /// <param name="isFilter">If the function we're adding is .Filter (troublesome)</param>
-        void AddNewFunc(Func<Image, Image> newEditFunc, bool isFilter = false)
+        void AddNewFunc(Func<Image, Image> newEditFunc, bool isFlip = false, bool isFilter = false)
         {
             // Check if our method was already added
             bool containsAction = _currentEditFuncs.Contains(newEditFunc);
@@ -132,19 +147,28 @@ namespace Backend
             {
                 // Needed since filter overrides resize, rotate and flip
                 // So we check if we're adding a filter and put it in the first index of the list
-                if (!isFilter)
-                {
-                    // Add the new editing function to the list
-                    _currentEditFuncs.Add(newEditFunc);
-                }
-                else
+                if (isFilter)
                 {
                     // Set the has filter to true - so we know a filter is being applied
                     _hasFilter = true;
                     // Insert the filter method as the first member of the list
                     _currentEditFuncs.Insert(0, newEditFunc);
                 }
+                else
+                {
+                    // Add the new editing function to the list
+                    _currentEditFuncs.Add(newEditFunc);
+                }
             }
+            else
+            {
+                if (isFlip)
+                {
+                    _currentEditFuncs.Remove(newEditFunc);
+                }
+            }
+
+            EditImage();
         }
 
         /// <summary>
@@ -153,14 +177,42 @@ namespace Backend
         /// <param name="flipVertically">If the image should be flipped vertically or horizontally</param>
         public void Flip(bool flipVertically)
         {
-            //_currentFlip = flipVertically;
-
+            _currentFlip = flipVertically;
             // FLIP _image and fire event:
-            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Flip(flipVertically)));
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Flip(_currentFlip)), true, false);
+        }
 
-            EditImage();
+        /// <summary>
+        /// Applies a certain amount of contrast to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of contrast to apply</param>
+        public void Contrast(int percentage)
+        {
+            _currentContrast = percentage;
 
-            OnImageChanged(_image);
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Contrast(_currentContrast)));
+        }
+
+        /// <summary>
+        /// Applies a certain amount of brightness to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of brightness to apply</param>
+        public void Brightness(int percentage)
+        {
+            _currentBrightness = percentage;
+
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Brightness(_currentBrightness)));
+        }
+
+        /// <summary>
+        /// Applies a certain amount of saturation to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of saturation to apply</param>
+        public void Saturation(int percentage)
+        {
+            _currentSaturation = percentage;
+
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Saturation(_currentSaturation)));
         }
 
         public void FilterOriginal()
@@ -174,39 +226,53 @@ namespace Backend
         }
 
         /// <summary>
-        /// Filter an image
+        /// Filter an image applying a black and white filter
         /// </summary>
         public void FilterBlackWhite()
         {
             ApplyFilter(MatrixFilters.BlackWhite);
         }
 
+        /// <summary>
+        /// Filter an image applying a comic filter
+        /// </summary>
         public void FilterComic()
         {
             ApplyFilter(MatrixFilters.Comic);
         }
 
+        /// <summary>
+        /// Filter an image applying a lomograph filter
+        /// </summary>
         public void FilterLomograph()
         {
             ApplyFilter(MatrixFilters.Lomograph);
         }
 
+        /// <summary>
+        /// Filter an image applying a sepia filter
+        /// </summary>
         public void FilterSepia()
         {
             ApplyFilter(MatrixFilters.Sepia);
         }
 
+        /// <summary>
+        /// Filter an image applying an invert filter
+        /// </summary>
         public void FilterInvert()
         {
             ApplyFilter(MatrixFilters.Invert);
         }
 
+        /// <summary>
+        /// Filter an image applying a black and white
+        /// </summary>
         public void ApplyFilter(IMatrixFilter filter)
         {
+            // Set the _currentFilter to be the filter 
             _currentFilter = filter;
-            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Filter(_currentFilter)), true);
-
-            EditImage();
+            AddNewFunc((image) => _imageEditor.ProcessImage(image, factory => factory.Filter(_currentFilter)), false, true);
         }
 
         /// <summary>
@@ -214,6 +280,9 @@ namespace Backend
         /// </summary>
         public void ResetEdits()
         {
+            // Delete all functions added to the list:
+            _currentEditFuncs.Clear();
+
             // Reset _image and fire event:
             OnImageChanged(_image);
         }
@@ -256,6 +325,12 @@ namespace Backend
         {
             // Only call it if there are any subscribers:
             _imageChangedEvent?.Invoke(this, new ImageModelEventArgs(width, height));
+        }
+
+        protected virtual void OnImageChanged(int degrees)
+        {
+            // Only call it if there are any subscribers:
+            _imageChangedEvent?.Invoke(this, new ImageModelEventArgs(degrees));
         }
         #endregion
     }

@@ -35,6 +35,23 @@ namespace Backend
         void FilterSepia();
         void FilterInvert();
 
+        /// <summary>
+        /// Applies a certain amount of contrast to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of contrast to apply</param>
+        void Contrast(int percentage);
+
+        /// <summary>
+        /// Applies a certain amount of brightness to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of brightness to apply</param>
+        void Brightness(int percentage);
+
+        /// <summary>
+        /// Applies a certain amount of saturation to an image
+        /// </summary>
+        /// <param name="percentage">The percentage of saturation to apply</param>
+        void Saturation(int percentage);
 
         /// <summary>
         /// Resets the edits made to the image

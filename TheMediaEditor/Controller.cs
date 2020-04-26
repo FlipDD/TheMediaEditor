@@ -79,6 +79,7 @@ namespace TheMediaEditor
 
             // Initialise new DisplayView, passing in Commands:
             displayView.Initialise(ExecuteCommand, modelEdits.Resize, modelEdits.Flip, modelEdits.Rotate, 
+                modelEdits.Contrast, modelEdits.Brightness, modelEdits.Saturation,
                 modelEdits.FilterOriginal, modelEdits.FilterBlackWhite, modelEdits.FilterComic, 
                 modelEdits.FilterLomograph, modelEdits.FilterSepia, modelEdits.FilterInvert,
                 modelEdits.ResetEdits, imageModel.SaveAs);

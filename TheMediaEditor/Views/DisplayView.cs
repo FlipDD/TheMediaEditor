@@ -22,6 +22,15 @@ namespace TheMediaEditor
         // DECLARE an Action<bool> to store the action to be executed when the image is flipped, call it _flipAction:
         private Action<bool> _flipAction;
 
+        // DECLARE an Action<int> to store the action to be executed when we apply contrast to the image, call it _contrastAction:
+        private Action<int> _contrastAction;
+
+        // DECLARE an Action<int> to store the action to be executed when we apply brightness to the image, call it _brightnessAction:
+        private Action<int> _brightnessAction;
+
+        // DECLARE an Action<int> to store the action to be executed when we apply saturation to the image, call it _saturationAction:
+        private Action<int> _saturationAction;
+
         // DECLARE a StrategyDelegate to be used when we remove the filters of the image, call it _removeFilter:
         private StrategyDelegate _removeFilter;
         // DECLARE a StrategyDelegate to be used when we apply a black and white filter to the image, call it _blackWhiteFilter:
@@ -59,6 +68,7 @@ namespace TheMediaEditor
         /// <param name="filter"></param>
         /// <param name="save"></param>
         public void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate,
+            Action<int> contrast, Action<int> brightness, Action<int> saturation,
            StrategyDelegate filterOriginal, StrategyDelegate filterBlackWhite, StrategyDelegate filterComic, 
            StrategyDelegate filterLomo, StrategyDelegate filterSepia, StrategyDelegate filterInvert,
            StrategyDelegate reset, StrategyDelegate save)
@@ -72,6 +82,13 @@ namespace TheMediaEditor
             _flipAction += flip;
             // SET _rotateAction to rotate:
             _rotateAction += rotate;
+
+            // SET _contrastAction to contrast:
+            _contrastAction = contrast;
+            // SET _brightnessAction  to brightness:
+            _brightnessAction = brightness;
+            // SET _saturationAction to saturation:
+            _saturationAction = saturation;
 
             // SET _resetAction to reset:
             _resetEdits += reset;
@@ -115,6 +132,15 @@ namespace TheMediaEditor
                 WidthNumUpDown.Value = args.width;
                 HeightNumUpDown.Value = args.height;
             }
+
+
+
+            //// Check for new rotation data:
+            //if (args.degrees != 0)
+            //{
+            //    // Update the value of the ValueLabel in the ToolsLayoutPanel:
+            //    ValueLabel.Text = args.degrees.ToString() + "°"; // CONVERSION TOO SLOW? //
+            //}
         }
 
         /// <summary>
@@ -288,6 +314,24 @@ namespace TheMediaEditor
             if (MessageBox.Show("Are you sure you want to close the editor?", 
                 "Close window", MessageBoxButtons.YesNo) == DialogResult.No)
                 e.Cancel = true;
+        }
+
+        private void ContrastTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            ICommand constractImage = new Command<int>(_contrastAction, ContrastTrackBar.Value);
+            _execute(constractImage);
+        }
+
+        private void BrightnessTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            ICommand constractImage = new Command<int>(_brightnessAction, BrightnessTrackBar.Value);
+            _execute(constractImage);
+        }
+
+        private void SaturationTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            ICommand saturationImage = new Command<int>(_saturationAction, SaturationTrackBar.Value);
+            _execute(saturationImage);
         }
     }
 }

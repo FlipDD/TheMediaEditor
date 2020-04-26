@@ -24,6 +24,7 @@ namespace TheMediaEditor
         /// <param name="reset"></param>
         /// <param name="save"></param>
         void Initialise(ExecuteDelegate execute, Action<Size> resize, Action<bool> flip, Action<int> rotate,
+            Action<int> contrast, Action<int> brightness, Action<int> saturation,
            StrategyDelegate filterOriginal, StrategyDelegate filterBlackWhite, StrategyDelegate filterComic,
            StrategyDelegate filterLomo, StrategyDelegate filterSepia, StrategyDelegate filterInvert,
            StrategyDelegate reset, StrategyDelegate save);

@@ -23,6 +23,11 @@ namespace Backend
         public int height { get; }
 
         /// <summary>
+        /// Property to hold the updated rotating in degrees (if any)
+        /// </summary>
+        public int degrees { get; }
+
+        /// <summary>
         /// Constructor for ImageModelEventArgs that takes in the updated Image
         /// </summary>
         /// <param name="image">The image</param>
@@ -40,6 +45,15 @@ namespace Backend
         {
             this.width = width;
             this.height = height;
+        }
+
+        /// <summary>
+        /// Constructor for ImageModelEventArgs that takes in the updated image rotating
+        /// </summary>
+        /// <param name="degrees">The new degrees value</param>
+        public ImageModelEventArgs(int degrees)
+        {
+            this.degrees = degrees;
         }
     }
 }
