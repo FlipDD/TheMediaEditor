@@ -8,6 +8,6 @@
         /// <summary>
         /// Execute the command.
         /// </summary>
-        void Execute();
+         void Execute();
     }
 }

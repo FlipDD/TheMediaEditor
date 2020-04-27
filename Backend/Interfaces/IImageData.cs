@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Backend.Implementations
+namespace Backend
 {
-    class ModelEdits : ImageModel
+    public interface IImageData
     {
     }
 }

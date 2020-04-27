@@ -14,7 +14,7 @@ namespace TheMediaEditor
         private IServiceLocator _factoryLocator;
 
         // DECLARE an ICollectionModel to store the image collect, call it _CollectionModel:
-        private ICollectionModel _CollectionModel;
+        private ICollectionModel _collectionModel;
 
         /// <summary>
         /// Constructor of the Controller class
@@ -25,16 +25,16 @@ namespace TheMediaEditor
             _factoryLocator = new FactoryLocator();
 
             // Instantiate a CollectionModel to store all images in, store it as an ICollectionModel and call it _CollectionModel:
-            _CollectionModel = (_factoryLocator.Get<ICollectionModel>() as IFactory<ICollectionModel>).Create<CollectionModel>();
+            _collectionModel = (_factoryLocator.Get<ICollectionModel>() as IFactory<ICollectionModel>).Create<CollectionModel>();
 
             // Inject _factoryLocator through to CollectionModel:
-            _CollectionModel.InjectFactory(_factoryLocator);
+            _collectionModel.InjectFactory(_factoryLocator);
 
             // Declare a create a temporary CollectionView and pass in the strategy delegate and the action:
-            var collectionView = new Views.CollectionView(_CollectionModel.BrowseImages, SetupDisplayView);
+            var collectionView = new Views.CollectionView(_collectionModel.BrowseImages, SetupDisplayView);
 
             // Subscribe to ImageAdded events:
-            (_CollectionModel as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
+            (_collectionModel as IAddImageEventPublisher).Subscribe(collectionView.OnImageAdded);
 
             // Fire-up UI by instantiating CollectionView:
             Application.Run(collectionView);
@@ -61,7 +61,7 @@ namespace TheMediaEditor
             var displayView = (_factoryLocator.Get<Form>() as IFactory<Form>).Create<DisplayView>() as DisplayView;
 
             // Set the IImageModel to be the one in the Dictionary with the Key = indexSelected:
-            var imageModel = _CollectionModel.GetImageModel(GetModelIndex(sender));
+            var imageModel = _collectionModel.GetImageModel(GetModelIndex(sender));
 
             // Subscribe to ImageEdited events:
             (imageModel as IEditImageEventPublisher).Subscribe(displayView.OnImageEdited);

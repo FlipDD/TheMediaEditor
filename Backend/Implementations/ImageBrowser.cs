@@ -30,18 +30,9 @@ namespace Backend
             // Create and initialise the list of strings used to store the selected images (file paths) selected:
             IList<string> filePaths = new List<string>();
 
-            // Make sure the program is not occupying too much memory in RAM
-            // Create a Process and set it to the currently active process:
-            var currentProc = Process.GetCurrentProcess();
-            // Create a float and set it to the current memory being occupied, in Megabytes (divide by 1000000):
-            var processSize = currentProc.PrivateMemorySize64 / 1000000f;
-
-            // If the processSize is bigger than 4GB:
-            if (processSize > 4000)
+            // Check if the process is dangerously big:
+            if (IsProcessTooBig(4000))
             {
-                // Show a MessageBox warning the user that he added too many (or too big) images:
-                MessageBox.Show(_processTooBigMessage);
-
                 // Return the empty list, don't go any further in the method:
                 return filePaths;
             }
@@ -69,22 +60,58 @@ namespace Backend
                 // If we selected Images, assign their paths to filePaths:
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // IEnumerable<long> to store the size of each file:
-                    var filesSize = fileDialog.FileNames.Select(file => new FileInfo(file).Length);
-                    // Float to store the size in Megabytes (divide by 1e+6):
-                    var filesSizeSum = filesSize.Sum() / 1000000f;
-
-                    // Show a message box if the size of all files selected exceed 20MB. Don't assign it to the filePaths list if they do:
-                    if (filesSizeSum > 30)
-                        MessageBox.Show(_filesTooBigMessage);
-                    // Assign the list of file paths to filePaths:
-                    else
-                        filePaths = fileDialog.FileNames;
+                    // Check if the files are too big:
+                    if (!AreFilesTooBig(fileDialog.FileNames, 30))
+                    {
+                        // Assign the list of file paths to filePaths:
+                        return fileDialog.FileNames;
+                    }
                 }
-
                 // Return the list containing (or not, if there was a problem) the file paths:
                 return filePaths;
             }
+        }
+
+        internal bool IsProcessTooBig(int size)
+        {
+            // Make sure the program is not occupying too much memory in RAM
+            // Create a Process and set it to the currently active process:
+            var currentProc = Process.GetCurrentProcess();
+            // Create a float and set it to the current memory being occupied, in Megabytes (divide by 1000000):
+            var processSize = currentProc.PrivateMemorySize64 / 1000000f;
+
+            // If the processSize is bigger than 4GB:
+            if (processSize > size)
+            {
+                // Show a MessageBox warning the user that he added too many (or too big) images:
+                MessageBox.Show(_processTooBigMessage);
+
+                // Return true:
+                return true;
+            }
+
+            // Return false:
+            return false;
+        }
+
+        internal bool AreFilesTooBig(IList<string> files, int size)
+        {
+            // IEnumerable<long> to store the size of each file:
+            var filesSize = files.Select(file => new FileInfo(file).Length);
+            // Float to store the size in Megabytes (divide by 1e+6):
+            var filesSizeSum = filesSize.Sum() / 1000000f;
+
+            // Show a message box if the size of all files selected exceed 20MB. Don't assign it to the filePaths list if they do:
+            if (filesSizeSum > size)
+            {
+                MessageBox.Show(_filesTooBigMessage);
+
+                // Return true:
+                return true;
+            }
+
+            // Return false:
+            return false;
         }
     }
 }

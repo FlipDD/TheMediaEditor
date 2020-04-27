@@ -14,7 +14,7 @@ namespace TheMediaEditor
         private ExecuteDelegate _execute;
 
         // DECLARE an EditActions that will be used to store all the actions used to edit the image, call it _editActions:
-        EditActions _editActions;
+        private EditActions _editActions;
 
         // DECLARE an Action to be executed for saving images, call it _saveImage:
         private Action _saveImage;
