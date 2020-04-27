@@ -46,8 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IImageData.cs" />
-    <Compile Include="Implementations\ImageData.cs" />
     <Compile Include="Implementations\CollectionModel.cs" />
     <Compile Include="Interfaces\IModelEdits.cs" />
     <Compile Include="Interfaces\IAddImageEventListener.cs" />

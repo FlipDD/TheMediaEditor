@@ -79,9 +79,7 @@ namespace Backend
             _currentModels.Add(count, imageModel);
 
             // Initialise the ImageModel, passing in the ImageEditor and the ImageSaver:
-            imageModel.Initialise(imageToAdd, imageEditor,
-                (_factories.Get<IImageSaver>() as IFactory<IImageSaver>).Create<ImageSaver>()
-                _factories.Get<IImageData>() as IFactory<IImageData>).Create<ImageData>());
+            imageModel.Initialise(imageToAdd, imageEditor, (_factories.Get<IImageSaver>() as IFactory<IImageSaver>).Create<ImageSaver>());
 
             // Initialise a new panel to send to the View:
             var panel = SetupNewPanel(imageEditor.ProcessImage(imageToAdd, im => im.Resize(new Size(150, 150))), count);

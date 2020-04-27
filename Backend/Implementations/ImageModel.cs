@@ -27,9 +27,11 @@ namespace Backend
         // DECLARE a Size that will hold the current size of the image, call it _currentSize:
         private Size _currentSize;
 
-
+        // DECLARE an int that will hold the value of the contrast, call it _currentContrast:
         private int _currentContrast;
+        // DECLARE an int that will hold the value of the brightness, call it _currentBrightness:
         private int _currentBrightness;
+        // DECLARE an int that will hold the value of the saturation, call it _currentSaturation:
         private int _currentSaturation;
 
         // DECLARE an int that will hold the amount in degrees the image was rotated, call it _currentDegrees:
@@ -47,13 +49,6 @@ namespace Backend
         // DECLARE a boolean that will if the image was flipped vertically or horizontally, call it _currentFlip:
         private bool _currentFlip;
 
-        private IImageData _imageData;
-
-        public IImageData GetImageData()
-        {
-            return _imageData;
-        }
-
         #region Implementation of IImageModel
         /// <summary>
         /// Constructor for objects of type ImageModel
@@ -61,14 +56,12 @@ namespace Backend
         /// <param name="currentImage">The image associated with this model</param>
         /// <param name="imageEditor">The ImageEditor used to edit the image (Resize, Flip, Rotate)</param>
         /// <param name="imageSaver">The ImageSaver used to save the image to a specific path/filename</param>
-        public void Initialise(Image currentImage, IImageEditor imageEditor, IImageSaver imageSaver, IImageData imageData)
+        public void Initialise(Image currentImage, IImageEditor imageEditor, IImageSaver imageSaver)
         {
             // SET the parameters
             _image = currentImage;
             _imageEditor = imageEditor;
             _imageSaver = imageSaver;
-
-            _imageData = imageData;
 
             // Initialize the List:
             _currentEditFuncs = new List<Func<Image, Image>>();

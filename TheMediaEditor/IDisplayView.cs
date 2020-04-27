@@ -11,9 +11,9 @@ namespace TheMediaEditor
         /// <summary>
         /// Constructor for objects of type DisplayView
         /// </summary>
-        /// <param name="execute"></param>
-        /// <param name="methods"></param>
-        /// <param name="save"></param>
+        /// <param name="execute">The execute delegate - used to execute commands</param>
+        /// <param name="methods">The actions that perform any kind of image processing</param>
+        /// <param name="save">The action for saving the image</param>
         void Initialise(ExecuteDelegate execute, EditActions methods, Action save);
     }
 }
